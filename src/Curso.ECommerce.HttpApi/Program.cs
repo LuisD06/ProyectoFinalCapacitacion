@@ -24,7 +24,11 @@ builder.Services.AddDbContext<ECommerceDbContext>(options =>
     options.UseSqlite($"Data Source={dbPath}");
 });
 builder.Services.AddTransient<IBrandRepository, BrandRepository>();
+builder.Services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
+
 builder.Services.AddTransient<IBrandAppService, BrandAppService>();
+builder.Services.AddTransient<IProductTypeAppService, ProductTypeAppService>();
+
 builder.Services.AddScoped<IUnitOfWork>(provider => 
 {
     var instance = provider.GetService<ECommerceDbContext>();

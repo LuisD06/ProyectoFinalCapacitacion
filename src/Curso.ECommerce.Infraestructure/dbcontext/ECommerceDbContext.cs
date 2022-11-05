@@ -10,7 +10,7 @@ namespace Curso.ECommerce.Infraestructure
         // public DbSet<Client> Clients { get; set; }
         // public DbSet<Order> Order { get; set; }
         // public DbSet<Product> Products { get; set; }
-        // public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
         
         
         public string DbPath { get; set; }

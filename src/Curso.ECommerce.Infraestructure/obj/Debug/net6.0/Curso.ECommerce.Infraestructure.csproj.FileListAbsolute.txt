@@ -1,0 +1,17 @@
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\bin\Debug\net6.0\Curso.ECommerce.Infraestructure.deps.json
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\bin\Debug\net6.0\Curso.ECommerce.Infraestructure.runtimeconfig.json
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\bin\Debug\net6.0\Curso.ECommerce.Infraestructure.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\bin\Debug\net6.0\Curso.ECommerce.Infraestructure.pdb
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\bin\Debug\net6.0\Curso.ECommerce.Domain.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\bin\Debug\net6.0\Curso.ECommerce.Domain.pdb
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.csproj.AssemblyReference.cache
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.AssemblyInfoInputs.cache
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.AssemblyInfo.cs
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.csproj.CoreCompileInputs.cache
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.csproj.CopyComplete
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\refint\Curso.ECommerce.Infraestructure.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.pdb
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\Curso.ECommerce.Infraestructure.genruntimeconfig.cache
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Infraestructure\obj\Debug\net6.0\ref\Curso.ECommerce.Infraestructure.dll

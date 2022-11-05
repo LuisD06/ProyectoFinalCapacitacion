@@ -1,45 +1,63 @@
 using System.Linq.Expressions;
-using Curso.ComercioElectronico.Domain.repository;
+using Curso.ECommerce.Domain.Repository;
+using Microsoft.EntityFrameworkCore;
 
-namespace Curso.ComercioElectronico.Infraestructure
+namespace Curso.ECommerce.Infraestructure
 {
-    public class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        public IUnitOfWork UnitOfWork => throw new NotImplementedException();
+        protected readonly ECommerceDbContext context;
+        public IUnitOfWork UnitOfWork => context;
 
-        public EfRepository()
+        public EfRepository(ECommerceDbContext context)
         {
-
+            this.context = context;
         }
 
-        public Task<TEntity> AddAsync(TEntity entity)
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await context.Set<TEntity>().AddAsync(entity);
+            return entity;
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            context.Set<TEntity>().Remove(entity);
         }
 
-        public IQueryable<TEntity> GetAll(bool asNoTracking = true)
+        public virtual IQueryable<TEntity> GetAll(bool asNoTracking = true)
         {
-            throw new NotImplementedException();
+            if (asNoTracking)
+            {
+                return context.Set<TEntity>().AsNoTracking();
+            }
+            else
+            {
+                return context.Set<TEntity>().AsQueryable();
+            }
         }
 
         public IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            IQueryable<TEntity> queryable = GetAll();
+            foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
+            {
+                queryable = queryable.Include<TEntity, object>(includeProperty);
+            }
+
+            return queryable;
         }
 
-        public Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await context.Set<TEntity>().FindAsync(id);
         }
 
-        public Task UpdateAsync(TEntity entity)
+        public virtual async Task UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            context.Update(entity);
+
+            return;
         }
     }
 }

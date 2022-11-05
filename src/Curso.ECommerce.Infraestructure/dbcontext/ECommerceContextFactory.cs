@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 
-namespace Curso.ComercioElectronico.Infraestructure
+namespace Curso.ECommerce.Infraestructure
 {
     public class ECommerceContextFactory : IDesignTimeDbContextFactory<ECommerceDbContext>
     {
@@ -18,7 +18,7 @@ namespace Curso.ComercioElectronico.Infraestructure
             
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            var dbPath = Path.Join(path, configuration.GetConnectionString("ECommcerce"));
+            var dbPath = Path.Join(path, configuration.GetConnectionString("ECommerce"));
             Debug.WriteLine($"dbPath: {dbPath}");
 
             optionsBuilder.UseSqlite($"Data Source={dbPath}");

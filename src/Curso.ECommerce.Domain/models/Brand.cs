@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
-namespace Curso.ComercioElectronico.Domain.models
+namespace Curso.ECommerce.Domain.Models
 {
     public class Brand
     {

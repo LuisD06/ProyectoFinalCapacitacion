@@ -676,6 +676,16 @@
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
         }
+      },
+      "Curso.ECommerce.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Curso.ECommerce.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Curso.ECommerce.Domain.dll": {}
+        }
       }
     }
   },
@@ -1490,10 +1500,16 @@
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "Curso.ECommerce.Domain/1.0.0": {
+      "type": "project",
+      "path": "../Curso.ECommerce.Domain/Curso.ECommerce.Domain.csproj",
+      "msbuildProject": "../Curso.ECommerce.Domain/Curso.ECommerce.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Curso.ECommerce.Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.10",
       "Microsoft.EntityFrameworkCore.Sqlite >= 6.0.10",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.10",
@@ -1524,7 +1540,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj": {
+              "projectPath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kFkU1tvbZOchy5ikocBpidGLkx3yK8+TLhkpg1ZzVmxzgVn/Qu1OSvjz+AGmpwxylYoa4TEps94tk2+JFGqTog==",
+  "dgSpecHash": "3uQ3/PO4adQVl5xPDNlsazacIP7ksVTd6uhPyJUtHxniLj0Xn/YDr0FhOFgPJ5T6UVi9yB7Vkb7g5LBZ986qsg==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
+  "projectFilePath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Casa\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Casa\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.10\\microsoft.data.sqlite.core.6.0.10.nupkg.sha512",

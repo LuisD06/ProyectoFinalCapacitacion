@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
-namespace Curso.ComercioElectronico.Domain.repository
+namespace Curso.ECommerce.Domain.Repository
 {
     public interface IRepository<TEntity> where TEntity : class
     {

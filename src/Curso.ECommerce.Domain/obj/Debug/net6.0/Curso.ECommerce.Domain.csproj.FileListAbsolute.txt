@@ -1,0 +1,12 @@
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\bin\Debug\net6.0\Curso.ECommerce.Domain.deps.json
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\bin\Debug\net6.0\Curso.ECommerce.Domain.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\bin\Debug\net6.0\Curso.ECommerce.Domain.pdb
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.csproj.AssemblyReference.cache
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.AssemblyInfoInputs.cache
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.AssemblyInfo.cs
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\refint\Curso.ECommerce.Domain.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.pdb
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\ref\Curso.ECommerce.Domain.dll

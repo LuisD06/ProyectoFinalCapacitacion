@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Curso.ComercioElectronico.Domain.repository
+namespace Curso.ECommerce.Domain.Repository
 {
     public interface IUnitOfWork : IDisposable
     {

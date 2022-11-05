@@ -1,18 +1,23 @@
-using Curso.ComercioElectronico.Domain.models;
-using Curso.ComercioElectronico.Domain.repository;
+using Curso.ECommerce.Domain.Models;
+using Curso.ECommerce.Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Curso.ComercioElectronico.Infraestructure
+namespace Curso.ECommerce.Infraestructure
 {
     public class ECommerceDbContext : DbContext, IUnitOfWork
     {
+        public DbSet<Brand> Brands { get; set; }
+        // public DbSet<Client> Clients { get; set; }
+        // public DbSet<Order> Order { get; set; }
+        // public DbSet<Product> Products { get; set; }
+        // public DbSet<ProductType> ProductTypes { get; set; }
+        
+        
+        public string DbPath { get; set; }
         public ECommerceDbContext(DbContextOptions<ECommerceDbContext> options) : base(options)
         {
 
         }
-        public DbSet<Brand> Brands { get; set; }
-        
-        public string DbPath { get; set; }
 
         // TODO: Add convertions for sqlite limitations
         // Reference: https://learn.microsoft.com/en-us/ef/core/providers/sqlite/limitations#query-limitations

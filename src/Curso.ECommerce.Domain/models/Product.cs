@@ -1,8 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Curso.ComercioElectronico.Domain;
-using Curso.ComercioElectronico.Domain.models;
-
-namespace Curso.ECommerce.Domain.models
+namespace Curso.ECommerce.Domain.Models
 {
     public class Product
     {

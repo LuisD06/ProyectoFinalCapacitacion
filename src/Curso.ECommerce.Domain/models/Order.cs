@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Curso.ECommerce.Domain.enums;
 
-namespace Curso.ECommerce.Domain.models
+namespace Curso.ECommerce.Domain.Models
 {
     public class Order
     {

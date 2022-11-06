@@ -28,6 +28,14 @@ namespace Curso.ECommerce.Application.Service
             // Mapeo Dto => Entidad
             var productEntity = new Product();
             productEntity.Name = product.Name;
+            productEntity.Brand = product.Brand;
+            productEntity.BrandId = product.BrandId;
+            productEntity.Expiration = product.Expiration;
+            productEntity.Notes = product.Notes;
+            productEntity.Price = product.Price;
+            productEntity.ProductType = product.ProductType;
+            productEntity.Stock = product.Stock;
+            productEntity.ProductTypeId = product.ProductTypeId;
             
 
             // Persistencia del objeto

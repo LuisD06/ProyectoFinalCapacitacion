@@ -7,9 +7,9 @@ namespace Curso.ECommerce.Infraestructure
     public class ECommerceDbContext : DbContext, IUnitOfWork
     {
         public DbSet<Brand> Brands { get; set; }
-        // public DbSet<Client> Clients { get; set; }
+        public DbSet<Client> Clients { get; set; }
         // public DbSet<Order> Order { get; set; }
-        // public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
         
         

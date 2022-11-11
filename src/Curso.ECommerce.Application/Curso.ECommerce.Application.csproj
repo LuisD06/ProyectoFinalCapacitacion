@@ -2,6 +2,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Curso.ECommerce.Domain\Curso.ECommerce.Domain.csproj" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <PropertyGroup>

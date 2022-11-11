@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "fO7zEz6coG1VPg8VYRodEifWdG3Xf6WrEUbnFkn20HjdwRBdA3O/Xt5nAPmwB7SHB3e2yTwfrmXpxMPob6gDUw==",
+  "dgSpecHash": "w4RHHgdFVmQ4wec4DTp8iPDG/VqXA3nwFZxuFwXRvyXKu59DFlhZuzKPMjMF+xXy+IwNPiipqEoQQCLQHtHW5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Application\\Curso.ECommerce.Application.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "E:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Application\\Curso.ECommerce.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\David\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\David\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -6,14 +6,15 @@ namespace Curso.ECommerce.Domain.Models
     public class Order
     {
         [Required]
-        public int Id { get; set; }
+        [StringLength(32)]
+        public Guid Id { get; set; }
 
         [Required]
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         public virtual Client Client { get; set; }
 
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>(); 
 
         [Required]
         public DateTime Date { get; set; }

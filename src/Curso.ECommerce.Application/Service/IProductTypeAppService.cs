@@ -12,8 +12,8 @@ namespace Curso.ECommerce.Application.Service
 
         Task<ProductTypeDto> CreateAsync(ProductTypeCreateUpdateDto productType);
 
-        Task UpdateAsync (int productTypeId,ProductTypeCreateUpdateDto productType);
+        Task UpdateAsync (string productTypeId,ProductTypeCreateUpdateDto productType);
 
-        Task<bool> DeleteAsync(int productTypeId);
+        Task<bool> DeleteAsync(string productTypeId);
     }
 }

@@ -10,7 +10,7 @@ namespace Curso.ECommerce.Application.Dto
     public class ProductDto
     {
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [StringLength(PropertySettings.NAME_MAX_LENGHT)]
@@ -21,11 +21,11 @@ namespace Curso.ECommerce.Application.Dto
         public int? Stock { get; set; }
 
         [Required]
-        public int BrandId { get; set; }
+        public string BrandId { get; set; }
         public string? Brand { get; set; }
 
         [Required]
-        public int ProductTypeId { get; set; }
+        public string ProductTypeId { get; set; }
         public string? ProductType { get; set; }
     }
 }

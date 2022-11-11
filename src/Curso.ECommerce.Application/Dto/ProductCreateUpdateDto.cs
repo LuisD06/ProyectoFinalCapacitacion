@@ -19,9 +19,9 @@ namespace Curso.ECommerce.Application.Dto
         public int? Stock { get; set; }
 
         [Required]
-        public int BrandId { get; set; }
+        public string BrandId { get; set; }
 
         [Required]
-        public int ProductTypeId { get; set; }
+        public string ProductTypeId { get; set; }
     }
 }

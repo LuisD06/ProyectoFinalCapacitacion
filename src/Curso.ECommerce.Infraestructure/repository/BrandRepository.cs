@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Curso.ECommerce.Infraestructure.Repository
 {
-    public class BrandRepository : EfRepository<Brand>, IBrandRepository
+    public class BrandRepository : EfRepository<Brand, string>, IBrandRepository
     {
         public BrandRepository(ECommerceDbContext context) : base(context)
         {
@@ -24,7 +24,7 @@ namespace Curso.ECommerce.Infraestructure.Repository
             return response;
         }
 
-        public async Task<bool> BrandExist(string brandName, int brandId)
+        public async Task<bool> BrandExist(string brandName, string brandId)
         {
             var query = this.context.Set<Brand>()
                            .Where(b => b.Id != brandId)

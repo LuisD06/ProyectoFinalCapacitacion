@@ -4,10 +4,13 @@ namespace Curso.ECommerce.Domain.Models
     public class Brand
     {
         [Required]
-        public int Id { get; set; }
+        [StringLength(12)]
+        public string Id { get; set; }
         [Required]
-        [MaxLength(PropertySettings.NAME_MAX_LENGHT)]
+        [MaxLength(80)]
         public string? Name { get; set; }
+
+
         
     }
 }

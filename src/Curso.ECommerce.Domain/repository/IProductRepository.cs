@@ -6,7 +6,7 @@ using Curso.ECommerce.Domain.Models;
 
 namespace Curso.ECommerce.Domain.Repository
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product, Guid>
     {
         ///<summary>
         ///Verify if a product name exists in database
@@ -15,6 +15,6 @@ namespace Curso.ECommerce.Domain.Repository
         ///<summary>
         ///Verify if a product exists in database, excluding itself
         ///</summary>
-        Task<bool> ProductExist(string brandName, int brandId);
+        Task<bool> ProductExist(string brandName, Guid brandId);
     }
 }

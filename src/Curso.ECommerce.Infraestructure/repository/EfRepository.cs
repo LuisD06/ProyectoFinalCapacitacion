@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Curso.ECommerce.Infraestructure
 {
-    public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public abstract class EfRepository<TEntity, TEntityId> : IRepository<TEntity, TEntityId> where TEntity : class
     {
         protected readonly ECommerceDbContext context;
         public IUnitOfWork UnitOfWork => context;
@@ -48,7 +48,7 @@ namespace Curso.ECommerce.Infraestructure
             return queryable;
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(TEntityId id)
         {
             return await context.Set<TEntity>().FindAsync(id);
         }
@@ -59,5 +59,6 @@ namespace Curso.ECommerce.Infraestructure
 
             return;
         }
+
     }
 }

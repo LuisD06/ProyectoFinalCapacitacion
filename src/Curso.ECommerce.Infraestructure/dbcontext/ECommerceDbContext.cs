@@ -18,6 +18,7 @@ namespace Curso.ECommerce.Infraestructure
         {
 
         }
+        
 
         // TODO: Add convertions for sqlite limitations
         // Reference: https://learn.microsoft.com/en-us/ef/core/providers/sqlite/limitations#query-limitations

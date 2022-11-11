@@ -4,7 +4,8 @@ namespace Curso.ECommerce.Domain.Models
     public class Product
     {
         [Required]
-        public int Id { get; set; }
+        [StringLength(32)]
+        public Guid Id { get; set; }
 
         [Required]
         [StringLength(PropertySettings.NAME_MAX_LENGHT)]
@@ -15,11 +16,11 @@ namespace Curso.ECommerce.Domain.Models
         public int? Stock { get; set; }
 
         [Required]
-        public int BrandId { get; set; }
+        public string BrandId { get; set; }
         public virtual Brand Brand { get; set; }
 
         [Required]
-        public int ProductTypeId { get; set; }
+        public string ProductTypeId { get; set; }
         public virtual ProductType ProductType { get; set; }
     }
 }

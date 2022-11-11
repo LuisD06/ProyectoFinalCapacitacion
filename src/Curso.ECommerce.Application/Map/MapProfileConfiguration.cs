@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Domain.models;
 using Curso.ECommerce.Domain.Models;
 
 namespace Curso.ECommerce.Application.Map
@@ -17,6 +18,12 @@ namespace Curso.ECommerce.Application.Map
             CreateMap<BrandCreateUpdateDto, Brand>();
             CreateMap<ProductTypeCreateUpdateDto, ProductType>();
             CreateMap<ProductType, ProductTypeDto>();
+            CreateMap<Cart, CartDto>();
+            CreateMap<CartItem, CartItemDto>();
+            CreateMap<ClientCreateUpdateDto, Client>();
+            CreateMap<Client, ClientDto>();
+            CreateMap<ProductCreateUpdateDto, Product>();
+            CreateMap<Product, ProductDto>();
         }
     }
 }

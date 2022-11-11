@@ -27,6 +27,13 @@ namespace Curso.ECommerce.Infraestructure
                 options.UseSqlite($"Data Source={dbPath}");
             });
 
+            // Utilizar una factoria
+            services.AddScoped<IUnitOfWork>(provider => 
+            {
+                var instance = provider.GetService<ECommerceDbContext>();
+                return instance;
+            });
+
             return services;
         }
 

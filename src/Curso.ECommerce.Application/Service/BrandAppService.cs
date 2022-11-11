@@ -3,6 +3,7 @@ using AutoMapper;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
+using FluentValidation;
 
 namespace Curso.ECommerce.Application.Service
 {
@@ -10,14 +11,25 @@ namespace Curso.ECommerce.Application.Service
     {
         private readonly IBrandRepository repository;
         private readonly IMapper mapper;
-        public BrandAppService(IBrandRepository repository, IMapper mapper)
+        private readonly IValidator<BrandCreateUpdateDto> brandCreateUpdateValidator;
+        public BrandAppService(IBrandRepository repository, IMapper mapper, IValidator<BrandCreateUpdateDto> brandCreateUpdateValidator)
         {
+            this.brandCreateUpdateValidator = brandCreateUpdateValidator;
             this.mapper = mapper;
             this.repository = repository;
         }
         public async Task<BrandDto> CreateAsync(BrandCreateUpdateDto brand)
         {
             // Validaciones
+            var validationResult = await brandCreateUpdateValidator.ValidateAsync(brand);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+
             var brandExist = await repository.BrandExist(brand.Name);
             if (brandExist)
             {
@@ -36,7 +48,6 @@ namespace Curso.ECommerce.Application.Service
             // Mapeo Entidad => Dto
             var createdBrand = mapper.Map<BrandDto>(brandEntity);
             
-            // TODO: Enviar un correo electronico... 
 
             return createdBrand;
         }
@@ -67,6 +78,16 @@ namespace Curso.ECommerce.Application.Service
 
         public async Task UpdateAsync(string brandId, BrandCreateUpdateDto brand)
         {
+            // Validaciones
+            var validationResult = await brandCreateUpdateValidator.ValidateAsync(brand);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+
             var brandEntity = await repository.GetByIdAsync(brandId);
             if (brandEntity == null)
             {
@@ -80,8 +101,6 @@ namespace Curso.ECommerce.Application.Service
             }
 
             //Mapeo Dto => Entidad
-            // TODO: Preguntar por que es diferente
-            // mapper.Map<Brand>(brand);
             mapper.Map<BrandCreateUpdateDto,Brand>(brand, brandEntity);
 
             //Persistencia objeto

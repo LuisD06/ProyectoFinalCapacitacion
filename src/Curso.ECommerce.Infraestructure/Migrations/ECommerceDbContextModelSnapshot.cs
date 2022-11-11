@@ -196,7 +196,7 @@ namespace Curso.ECommerce.Infraestructure.Migrations
             modelBuilder.Entity("Curso.ECommerce.Domain.Models.Order", b =>
                 {
                     b.HasOne("Curso.ECommerce.Domain.Models.Client", "Client")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -240,11 +240,6 @@ namespace Curso.ECommerce.Infraestructure.Migrations
                     b.Navigation("Brand");
 
                     b.Navigation("ProductType");
-                });
-
-            modelBuilder.Entity("Curso.ECommerce.Domain.Models.Client", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("Curso.ECommerce.Domain.Models.Order", b =>

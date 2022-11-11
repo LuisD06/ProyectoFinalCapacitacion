@@ -6,6 +6,7 @@ using AutoMapper;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
+using FluentValidation;
 
 namespace Curso.ECommerce.Application.Service
 {
@@ -13,8 +14,10 @@ namespace Curso.ECommerce.Application.Service
     {
         private readonly IProductTypeRepository repository;
         private readonly IMapper mapper;
-        public ProductTypeAppService(IProductTypeRepository repository, IMapper mapper)
+        private readonly IValidator<ProductTypeCreateUpdateDto> productTypeCUDtoValidator;
+        public ProductTypeAppService(IProductTypeRepository repository, IMapper mapper, IValidator<ProductTypeCreateUpdateDto> productTypeCUDtoValidator)
         {
+            this.productTypeCUDtoValidator = productTypeCUDtoValidator;
             this.mapper = mapper;
             this.repository = repository;
 
@@ -22,6 +25,16 @@ namespace Curso.ECommerce.Application.Service
         public async Task<ProductTypeDto> CreateAsync(ProductTypeCreateUpdateDto productType)
         {
             // Validaciones
+            var validationResult = await productTypeCUDtoValidator.ValidateAsync(productType);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+
+
             var productTypeExist = await repository.ProductTypeExist(productType.Name);
             if (productTypeExist)
             {
@@ -40,7 +53,6 @@ namespace Curso.ECommerce.Application.Service
             // Mapeo Entidad => Dto
             var createdProductType = mapper.Map<ProductTypeDto>(productTypeEntity);
 
-            // TODO: Enviar un correo electronica... 
 
             return createdProductType;
         }
@@ -74,6 +86,16 @@ namespace Curso.ECommerce.Application.Service
 
         public async Task UpdateAsync(string productTypeId, ProductTypeCreateUpdateDto productType)
         {
+            // Validaciones
+            var validationResult = await productTypeCUDtoValidator.ValidateAsync(productType);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+            
             var productTypeEntity = await repository.GetByIdAsync(productTypeId);
             if (productTypeEntity == null)
             {

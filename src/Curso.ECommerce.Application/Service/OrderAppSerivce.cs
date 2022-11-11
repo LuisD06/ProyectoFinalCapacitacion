@@ -6,6 +6,7 @@ using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.enums;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
+using FluentValidation;
 
 namespace Curso.ECommerce.Application.Service
 {
@@ -13,8 +14,18 @@ namespace Curso.ECommerce.Application.Service
     {
         private readonly IOrderRepository repository;
         private readonly IProductAppService productService;
-        public OrderAppSerivce(IOrderRepository repository, IProductAppService productService)
+        private readonly IValidator<OrderCreateDto> orderCreateValidator;
+        private readonly IValidator<OrderItemCreateUpdateDto> orderItemCUDtoValidator;
+
+        public OrderAppSerivce(
+            IOrderRepository repository,
+            IProductAppService productService,
+            IValidator<OrderCreateDto> orderCreateValidator,
+            IValidator<OrderItemCreateUpdateDto> orderItemCUDtoValidator
+        )
         {
+            this.orderCreateValidator = orderCreateValidator;
+            this.orderItemCUDtoValidator = orderItemCUDtoValidator;
             this.productService = productService;
             this.repository = repository;
 
@@ -23,11 +34,36 @@ namespace Curso.ECommerce.Application.Service
 
         public async Task<OrderDto> CreateAsync(OrderCreateDto order)
         {
+
             // Validaciones
-            if (order.OrderItems.Count == 0)
+            var validationResult = await orderCreateValidator.ValidateAsync(order);
+            if (!validationResult.IsValid)
             {
-                throw new ArgumentException("Se ha tratado de crear una orden sin items");
+                var listaErrores = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", listaErrores);
+                throw new ArgumentException(errorString);
             }
+
+            // TODO: Aplicar las validaciones en los order item
+            var itemsError = string.Empty;
+            foreach (var item in order.OrderItems)
+            {   
+                var itemValidation = await orderItemCUDtoValidator.ValidateAsync(item);
+                if (!itemValidation.IsValid) {
+                    var itemErrorList = itemValidation.Errors.Select(e => e.ErrorMessage);
+                    var itemErrorString = string.Join(" - ", itemErrorList);
+                    itemsError += itemErrorString;
+                }
+            }
+            if (!string.IsNullOrEmpty(itemsError)) {
+                throw new ArgumentException(itemsError);
+            }
+            //TODO: Validar cuando se envia en una orden mas de un item con el mismo producto
+            
+            
+
             // Stock del producto
             var productIdList = order.OrderItems.Select(i => i.ProductId);
             var itemProductList = await productService.GetAllByIdAsync(productIdList.ToList());

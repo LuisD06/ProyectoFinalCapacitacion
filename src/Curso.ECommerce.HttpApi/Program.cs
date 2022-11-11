@@ -15,11 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfraestructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 
-builder.Services.AddScoped<IUnitOfWork>(provider => 
-{
-    var instance = provider.GetService<ECommerceDbContext>();
-    return instance;
-});
+
 
 var app = builder.Build();
 

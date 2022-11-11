@@ -1,20 +1,35 @@
+using AutoMapper;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
+using FluentValidation;
 
 namespace Curso.ECommerce.Application.Service
 {
     public class ClientAppService : IClientAppService
     {
         private readonly IClientRepository repository;
+        private readonly IMapper mapper;
+        private readonly IValidator<ClientCreateUpdateDto> clientCUDtoValidator;
 
-        public ClientAppService(IClientRepository repository)
+        public ClientAppService(IClientRepository repository, IMapper mapper, IValidator<ClientCreateUpdateDto> clientCUDtoValidator)
         {
+            this.clientCUDtoValidator = clientCUDtoValidator;
+            this.mapper = mapper;
             this.repository = repository;
         }
         public async Task<ClientDto> CreateAsync(ClientCreateUpdateDto client)
         {
             // Validaciones
+            var validationResult = await clientCUDtoValidator.ValidateAsync(client);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+
             var clientExist = await repository.IdentificationExist(client.Identification);
             if (clientExist)
             {
@@ -22,31 +37,14 @@ namespace Curso.ECommerce.Application.Service
             }
 
             // Mapeo Dto => Entidad
-            var clientEntity = new Client();
-            clientEntity.Address = client.Address;
-            clientEntity.Country = client.Country;
-            clientEntity.Email = client.Email;
-            clientEntity.Identification = client.Identification;
-            clientEntity.Name = client.Name;
-            clientEntity.Phone = client.Phone;
-            clientEntity.ZipCode = client.ZipCode;
+            var clientEntity = mapper.Map<Client>(client);
 
             // Persistencia del objeto
             clientEntity = await repository.AddAsync(clientEntity);
             await repository.UnitOfWork.SaveChangesAsync();
 
             // Mapeo Entidad => Dto
-            var createdClient = new ClientDto();
-            createdClient.Address = clientEntity.Address;
-            createdClient.Country = clientEntity.Country;
-            createdClient.Email = clientEntity.Email;
-            createdClient.Identification = clientEntity.Identification;
-            createdClient.Name = clientEntity.Name;
-            createdClient.Phone = clientEntity.Phone;
-            createdClient.ZipCode = clientEntity.ZipCode;
-            createdClient.Id = clientEntity.Id;
-
-            // TODO: Enviar un correo electronica... 
+            var createdClient = mapper.Map<ClientDto>(clientEntity);
 
             return createdClient;
         }
@@ -68,25 +66,27 @@ namespace Curso.ECommerce.Application.Service
 
         public ICollection<ClientDto> GetAll()
         {
-            var clietList = repository.GetAll();
+            var clientList = repository.GetAll();
 
-            var clientListDto = from c in clietList
-                               select new ClientDto()
-                               {
-                                   Address = c.Address,
-                                   Country = c.Country,
-                                   Email = c.Email,
-                                   Id = c.Id,
-                                   Identification = c.Identification,
-                                   Name = c.Name,
-                                   Phone = c.Phone
-                               };
+            var clientListDto = clientList.Select(c => mapper.Map<ClientDto>(c));
+
+            // TODO: Revisar de que forma son devueltas las ordenes de los usuarios
 
             return clientListDto.ToList();
         }
 
         public async Task UpdateAsync(Guid clientId, ClientCreateUpdateDto client)
         {
+            // Validaciones
+            var validationResult = await clientCUDtoValidator.ValidateAsync(client);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+            
             var clientEntity = await repository.GetByIdAsync(clientId);
             if (clientEntity == null)
             {
@@ -100,13 +100,7 @@ namespace Curso.ECommerce.Application.Service
             }
 
             //Mapeo Dto => Entidad
-            clientEntity.Address = client.Address;
-            clientEntity.Country = client.Country;
-            clientEntity.Email = client.Email;
-            clientEntity.Identification = client.Identification;
-            clientEntity.Name = client.Name;
-            clientEntity.Phone = client.Phone;
-            clientEntity.ZipCode = client.ZipCode;
+            mapper.Map(client, clientEntity);
 
             //Persistencia objeto
             await repository.UpdateAsync(clientEntity);

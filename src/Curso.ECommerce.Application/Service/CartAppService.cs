@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.models;
 using Curso.ECommerce.Domain.repository;
@@ -12,11 +13,13 @@ namespace Curso.ECommerce.Application.Service
     {
         private readonly ICartRepository repository;
         private readonly IProductAppService productService;
+        private readonly IMapper mapper;
 
-        public CartAppService(ICartRepository repository, IProductAppService productService)
+        public CartAppService(ICartRepository repository, IProductAppService productService, IMapper mapper)
         {
             this.repository = repository;
             this.productService = productService;
+            this.mapper = mapper;
         }
         public async Task<CartDto> CreateAsync(CartCreateDto cart)
         {
@@ -107,24 +110,25 @@ namespace Curso.ECommerce.Application.Service
         public ICollection<CartDto> GetAll()
         {
             var query = repository.GetAllIncluding(c => c.Client, c => c.CartItems);
-            var cartDtoList = query.Select(c => new CartDto()
-            {
-                CancellationDate = c.CancellationDate,
-                ClientId = c.ClientId,
-                Date = c.Date,
-                Id = c.Id,
-                Notes = c.Notes,
-                Total = c.Total,
-                CartItems = c.CartItems.Select(i => new CartItemDto()
-                {
-                    Id = i.Id,
-                    Notes = i.Notes,
-                    CartId = i.CartId,
-                    Price = i.Price,
-                    ProductId = i.ProductId,
-                    Quantity = i.Quantity
-                }).ToList()
-            });
+            // var cartDtoList = query.Select(c => new CartDto()
+            // {
+            //     CancellationDate = c.CancellationDate,
+            //     ClientId = c.ClientId,
+            //     Date = c.Date,
+            //     Id = c.Id,
+            //     Notes = c.Notes,
+            //     Total = c.Total,
+            //     CartItems = c.CartItems.Select(i => new CartItemDto()
+            //     {
+            //         Id = i.Id,
+            //         Notes = i.Notes,
+            //         CartId = i.CartId,
+            //         Price = i.Price,
+            //         ProductId = i.ProductId,
+            //         Quantity = i.Quantity
+            //     }).ToList()
+            // });
+            var cartDtoList = query.Select(c => mapper.Map<CartDto>(c));
             return cartDtoList.ToList();
         }
 

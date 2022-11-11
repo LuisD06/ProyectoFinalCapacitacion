@@ -23,8 +23,5 @@ namespace Curso.ECommerce.Application.Dto
         public string? Email { get; set; }
         [Required]
         public string? Phone { get; set; }
-
-
-        public ICollection<string>? Orders { get; set; }
     }
 }

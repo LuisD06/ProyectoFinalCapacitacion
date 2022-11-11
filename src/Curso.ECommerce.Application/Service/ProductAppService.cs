@@ -2,23 +2,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
+using FluentValidation;
 
 namespace Curso.ECommerce.Application.Service
 {
     public class ProductAppService : IProductAppService
     {
         private readonly IProductRepository repository;
+        private readonly IMapper mapper;
+        private readonly IValidator<ProductCreateUpdateDto> productCUDtoValidator;
 
-        public ProductAppService(IProductRepository repository)
+        public ProductAppService(IProductRepository repository, IMapper mapper, IValidator<ProductCreateUpdateDto> productCUDtoValidator)
         {
+            this.productCUDtoValidator = productCUDtoValidator;
             this.repository = repository;
+            this.mapper = mapper;
         }
         public async Task<ProductDto> CreateAsync(ProductCreateUpdateDto product)
         {
             // Validaciones
+            var validationResult = await productCUDtoValidator.ValidateAsync(product);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+
             var productExist = await repository.ProductExist(product.Name);
             if (productExist)
             {
@@ -26,39 +41,22 @@ namespace Curso.ECommerce.Application.Service
             }
 
             // Mapeo Dto => Entidad
-
-            var productEntity = new Product();
-            productEntity.Name = product.Name;
-            productEntity.BrandId = product.BrandId;
-            productEntity.Expiration = product.Expiration;
-            productEntity.Notes = product.Notes;
-            productEntity.Price = product.Price;
-            productEntity.Stock = product.Stock;
-            productEntity.ProductTypeId = product.ProductTypeId;
-
+            var productEntity = mapper.Map<Product>(product);
 
             // Persistencia del objeto
             productEntity = await repository.AddAsync(productEntity);
             await repository.UnitOfWork.SaveChangesAsync();
 
             // Mapeo Entidad => Dto
-            var createdProduct = new ProductDto();
 
             var productListQuery = repository.GetAllIncluding(x => x.Brand, x => x.ProductType);
             var productQuery = productListQuery.Where(p => p.Id == productEntity.Id).SingleOrDefault();
 
-            createdProduct.Name = productEntity.Name;
-            createdProduct.Id = productEntity.Id;
-            createdProduct.Brand = productQuery.Brand.Name;
-            createdProduct.BrandId = productEntity.BrandId;
-            createdProduct.Expiration = productEntity.Expiration;
-            createdProduct.Notes = productEntity.Notes;
-            createdProduct.Price = productEntity.Price;
-            createdProduct.ProductType = productQuery.ProductType.Name;
-            createdProduct.ProductTypeId = productEntity.ProductTypeId;
-            createdProduct.Stock = productEntity.Stock;
 
-            // TODO: Enviar un correo electronico... 
+            var createdProduct = mapper.Map<ProductDto>(productEntity);
+            createdProduct.Brand = productQuery.Brand.Name;
+            createdProduct.ProductType = productQuery.ProductType.Name;
+
 
             return createdProduct;
         }
@@ -103,6 +101,16 @@ namespace Curso.ECommerce.Application.Service
 
         public async Task UpdateAsync(Guid productId, ProductCreateUpdateDto product)
         {
+            // Validaciones
+            var validationResult = await productCUDtoValidator.ValidateAsync(product);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+            
             var productEntity = await repository.GetByIdAsync(productId);
             if (productEntity == null)
             {
@@ -116,13 +124,7 @@ namespace Curso.ECommerce.Application.Service
             }
 
             //Mapeo Dto => Entidad
-            productEntity.Name = product.Name;
-            productEntity.Price = product.Price;
-            productEntity.Notes = product.Notes;
-            productEntity.Expiration = product.Expiration;
-            productEntity.Stock = product.Stock;
-            productEntity.BrandId = product.BrandId;
-            productEntity.ProductTypeId = product.ProductTypeId;
+            mapper.Map(product, productEntity);
 
 
             //Persistencia objeto

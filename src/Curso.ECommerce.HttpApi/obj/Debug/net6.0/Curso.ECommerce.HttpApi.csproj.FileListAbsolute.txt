@@ -118,3 +118,6 @@ E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.EComm
 E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\obj\Debug\net6.0\ref\Curso.ECommerce.HttpApi.dll
 E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\AutoMapper.dll
 E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

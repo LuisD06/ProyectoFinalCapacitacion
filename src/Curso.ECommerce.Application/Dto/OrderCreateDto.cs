@@ -22,10 +22,6 @@ namespace Curso.ECommerce.Application.Dto
         [Required]
         public OrderStatus Status { get; set; }
 
-
-        [Required]
-        public decimal Total { get; set; }
-
         public string? Notes { get; set; }
 
 

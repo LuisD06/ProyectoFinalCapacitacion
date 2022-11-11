@@ -1,5 +1,8 @@
 using System.Reflection;
+using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Application.Service;
+using Curso.ECommerce.Application.Validators;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +20,15 @@ namespace Curso.ECommerce.Application
 
             //Configurar la inyección de todos los profile que existen en un Assembly
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            // Configurar los validadores
+            services.AddScoped<IValidator<CreditCreateDto>, CreditCreateDtoValidator>();
+            services.AddScoped<IValidator<OrderCreateDto>, OrderCreateDtoValidator>();
+            services.AddScoped<IValidator<BrandCreateUpdateDto>, BrandCreateUpdateDtoValidator>();
+            services.AddScoped<IValidator<ProductTypeCreateUpdateDto>, ProductTypeCreateUpdateDtoValidator>();
+            services.AddScoped<IValidator<ProductCreateUpdateDto>, ProductCreateUpdateDtoValidator>();
+            services.AddScoped<IValidator<ClientCreateUpdateDto>, ClientCreateUpdateDtoValidator>();
+            services.AddScoped<IValidator<OrderItemCreateUpdateDto>, OrderItemCreateUpdateDtoValidator>();
 
             return services;
         }

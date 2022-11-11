@@ -11,7 +11,6 @@ namespace Curso.ECommerce.Domain.Models
         [MaxLength(10)]
         public string? Identification { get; set; }
         [Required]
-        // TODO: agregar maximo de caracteres
         [MaxLength(80)]
         public string? Name { get; set; }
         public string? Address { get; set; }

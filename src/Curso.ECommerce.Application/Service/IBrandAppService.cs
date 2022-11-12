@@ -8,8 +8,8 @@ namespace Curso.ECommerce.Application.Service
 
         Task<BrandDto> CreateAsync(BrandCreateUpdateDto brand);
 
-        Task UpdateAsync (int id, BrandCreateUpdateDto brand);
+        Task UpdateAsync (string brandId, BrandCreateUpdateDto brand);
 
-        Task<bool> DeleteAsync(int brandId);
+        Task<bool> DeleteAsync(string brandId);
     }
 }

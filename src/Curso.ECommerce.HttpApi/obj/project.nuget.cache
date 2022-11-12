@@ -1,9 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "6XZh379uLBgk+CuogVqm5oxIyAt2/C0CxVhGSsIu6x2U5YijiNIASOZKA1Ga/u/N8ksX40XmTkudPsn8j9b+sA==",
+  "dgSpecHash": "Lg6AGVTLai+fvVOl3sS2IHqzik2IjiuczqvQtrujuD17CovDeSpbx+3CAoU+Nbu5OJST2oQn9UMx2VGVYn/UFw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.HttpApi\\Curso.ECommerce.HttpApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Casa\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\Casa\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
+    "C:\\Users\\Casa\\.nuget\\packages\\fluentvalidation\\11.2.1\\fluentvalidation.11.2.1.nupkg.sha512",
+    "C:\\Users\\Casa\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.2\\fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
+    "C:\\Users\\Casa\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.2.1\\fluentvalidation.dependencyinjectionextensions.11.2.1.nupkg.sha512",
+    "C:\\Users\\Casa\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Casa\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.10\\microsoft.data.sqlite.core.6.0.10.nupkg.sha512",
     "C:\\Users\\Casa\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.10\\microsoft.entityframeworkcore.6.0.10.nupkg.sha512",
     "C:\\Users\\Casa\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.10\\microsoft.entityframeworkcore.abstractions.6.0.10.nupkg.sha512",

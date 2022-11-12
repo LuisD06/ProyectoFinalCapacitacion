@@ -32,13 +32,13 @@ namespace Curso.ECommerce.HttpApi.Controllers
         }
 
         [HttpPut]
-        public async Task UpdateAsync(int productTypeId, ProductTypeCreateUpdateDto productType)
+        public async Task UpdateAsync(string productTypeId, ProductTypeCreateUpdateDto productType)
         {
             await service.UpdateAsync(productTypeId, productType);
         }
 
         [HttpDelete]
-        public async Task<bool> DeleteAsync(int productTypeId)
+        public async Task<bool> DeleteAsync(string productTypeId)
         {
             return await service.DeleteAsync(productTypeId);
         }

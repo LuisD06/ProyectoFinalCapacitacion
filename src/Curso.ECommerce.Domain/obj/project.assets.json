@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj",
+      "projectUniqueName": "c:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj",
       "projectName": "Curso.ECommerce.Domain",
-      "projectPath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj",
+      "projectPath": "c:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj",
       "packagesPath": "C:\\Users\\Casa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\obj\\",
+      "outputPath": "c:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Casa\\AppData\\Roaming\\NuGet\\NuGet.Config"

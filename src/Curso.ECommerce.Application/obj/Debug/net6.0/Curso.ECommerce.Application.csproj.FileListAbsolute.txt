@@ -13,3 +13,18 @@ C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Applic
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Application\obj\Debug\net6.0\refint\Curso.ECommerce.Application.dll
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.pdb
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Application\obj\Debug\net6.0\ref\Curso.ECommerce.Application.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\bin\Debug\net6.0\Curso.ECommerce.Application.deps.json
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\bin\Debug\net6.0\Curso.ECommerce.Application.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\bin\Debug\net6.0\Curso.ECommerce.Application.pdb
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\bin\Debug\net6.0\Curso.ECommerce.Domain.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\bin\Debug\net6.0\Curso.ECommerce.Domain.pdb
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.csproj.AssemblyReference.cache
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.AssemblyInfoInputs.cache
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.AssemblyInfo.cs
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.csproj.CoreCompileInputs.cache
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.csproj.CopyComplete
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\refint\Curso.ECommerce.Application.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\Curso.ECommerce.Application.pdb
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Application\obj\Debug\net6.0\ref\Curso.ECommerce.Application.dll

@@ -10,3 +10,15 @@ C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\refint\Curso.ECommerce.Domain.dll
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.pdb
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.Domain\obj\Debug\net6.0\ref\Curso.ECommerce.Domain.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\bin\Debug\net6.0\Curso.ECommerce.Domain.deps.json
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\bin\Debug\net6.0\Curso.ECommerce.Domain.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\bin\Debug\net6.0\Curso.ECommerce.Domain.pdb
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.csproj.AssemblyReference.cache
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.AssemblyInfoInputs.cache
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.AssemblyInfo.cs
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.csproj.CoreCompileInputs.cache
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\refint\Curso.ECommerce.Domain.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\Curso.ECommerce.Domain.pdb
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.Domain\obj\Debug\net6.0\ref\Curso.ECommerce.Domain.dll

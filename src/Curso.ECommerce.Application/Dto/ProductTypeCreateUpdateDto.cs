@@ -11,7 +11,6 @@ namespace Curso.ECommerce.Application.Dto
     {
         
         [Required]
-        [MaxLength(PropertySettings.NAME_MAX_LENGHT)]
         public string? Name { get; set; }
     }
 }

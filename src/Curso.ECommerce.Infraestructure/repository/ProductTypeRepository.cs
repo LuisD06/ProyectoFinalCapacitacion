@@ -8,11 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Curso.ECommerce.Infraestructure.Repository
 {
-    public class ProductTypeRepository : EfRepository<ProductType>, IProductTypeRepository
+    public class ProductTypeRepository : EfRepository<ProductType, string>, IProductTypeRepository
     {
         public ProductTypeRepository(ECommerceDbContext context) : base(context)
         {
         }
+
 
         public async Task<bool> ProductTypeExist(string productTypeName)
         {
@@ -22,7 +23,7 @@ namespace Curso.ECommerce.Infraestructure.Repository
             return response;
         }
 
-        public async Task<bool> ProductTypeExist(string productTypeName, int productTypeId)
+        public async Task<bool> ProductTypeExist(string productTypeName, string productTypeId)
         {
             var query = this.context.Set<ProductType>()
                            .Where(t => t.Id != productTypeId)

@@ -2,48 +2,62 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
+using FluentValidation;
 
 namespace Curso.ECommerce.Application.Service
 {
     public class ProductTypeAppService : IProductTypeAppService
     {
         private readonly IProductTypeRepository repository;
-        public ProductTypeAppService(IProductTypeRepository repository)
+        private readonly IMapper mapper;
+        private readonly IValidator<ProductTypeCreateUpdateDto> productTypeCUDtoValidator;
+        public ProductTypeAppService(IProductTypeRepository repository, IMapper mapper, IValidator<ProductTypeCreateUpdateDto> productTypeCUDtoValidator)
         {
+            this.productTypeCUDtoValidator = productTypeCUDtoValidator;
+            this.mapper = mapper;
             this.repository = repository;
 
         }
         public async Task<ProductTypeDto> CreateAsync(ProductTypeCreateUpdateDto productType)
         {
             // Validaciones
+            var validationResult = await productTypeCUDtoValidator.ValidateAsync(productType);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+
+
             var productTypeExist = await repository.ProductTypeExist(productType.Name);
             if (productTypeExist)
             {
                 throw new ArgumentException($"Ya existe un tipo de producto con el nombre {productType.Name}");
             }
-
+            // Creacion de la clave primaria
+            Guid guid = Guid.NewGuid();
             // Mapeo Dto => Entidad
-            var productTypeEntity = new ProductType();
-            productTypeEntity.Name = productType.Name;
+            var productTypeEntity = mapper.Map<ProductType>(productType);
+            productTypeEntity.Id = guid.ToString("N").Substring(0, 8).ToUpper();
 
             // Persistencia del objeto
             productTypeEntity = await repository.AddAsync(productTypeEntity);
             await repository.UnitOfWork.SaveChangesAsync();
 
             // Mapeo Entidad => Dto
-            var createdProductType = new ProductTypeDto();
-            createdProductType.Name = productTypeEntity.Name;
-            createdProductType.Id = productTypeEntity.Id;
+            var createdProductType = mapper.Map<ProductTypeDto>(productTypeEntity);
 
-            // TODO: Enviar un correo electronica... 
 
             return createdProductType;
         }
 
-        public async Task<bool> DeleteAsync(int productTypeId)
+        public async Task<bool> DeleteAsync(string productTypeId)
         {
             //Reglas Validaciones... 
             var productTypeEntity = await repository.GetByIdAsync(productTypeId);
@@ -62,18 +76,26 @@ namespace Curso.ECommerce.Application.Service
         {
             var productTypeList = repository.GetAll();
 
-            var productTypeListDto = from b in productTypeList
-                               select new ProductTypeDto()
-                               {
-                                   Id = b.Id,
-                                   Name = b.Name
-                               };
+            var productTypeListDto = from b in productTypeList select new ProductTypeDto(){
+                Id = b.Id,
+                Name = b.Name
+            };
 
             return productTypeListDto.ToList();
         }
 
-        public async Task UpdateAsync(int productTypeId, ProductTypeCreateUpdateDto productType)
+        public async Task UpdateAsync(string productTypeId, ProductTypeCreateUpdateDto productType)
         {
+            // Validaciones
+            var validationResult = await productTypeCUDtoValidator.ValidateAsync(productType);
+            if (!validationResult.IsValid) {
+                var errorList = validationResult.Errors.Select(
+                    e => e.ErrorMessage
+                );
+                var errorString = string.Join(" - ", errorList);
+                throw new ArgumentException(errorString);
+            }
+            
             var productTypeEntity = await repository.GetByIdAsync(productTypeId);
             if (productTypeEntity == null)
             {
@@ -87,7 +109,7 @@ namespace Curso.ECommerce.Application.Service
             }
 
             //Mapeo Dto => Entidad
-            productTypeEntity.Name = productType.Name;
+            mapper.Map(productType, productTypeEntity);
 
             //Persistencia objeto
             await repository.UpdateAsync(productTypeEntity);

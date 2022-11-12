@@ -5,10 +5,11 @@ namespace Curso.ECommerce.Domain.Models
     public class ProductType
     {
         [Required]
-        public int Id { get; set; }
+        [StringLength(8)]
+        public string Id { get; set; }
         
         [Required]
-        [MaxLength(PropertySettings.NAME_MAX_LENGHT)]
+        [MaxLength(40)]
         public string? Name { get; set; }
     }
 }

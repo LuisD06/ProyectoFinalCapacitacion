@@ -1,9 +1,6 @@
-using System.Diagnostics;
-using Curso.ECommerce.Application.Service;
+using Curso.ECommerce.Application;
 using Curso.ECommerce.Domain.Repository;
 using Curso.ECommerce.Infraestructure;
-using Curso.ECommerce.Infraestructure.Repository;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,26 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ECommerceDbContext>(options =>
-{
-    var folder = Environment.SpecialFolder.LocalApplicationData;
-    var path = Environment.GetFolderPath(folder);
-    var dbPath = Path.Join(path, builder.Configuration.GetConnectionString("ECommerce"));
-    Debug.WriteLine($"dbPath: {dbPath}");
 
-    options.UseSqlite($"Data Source={dbPath}");
-});
-builder.Services.AddTransient<IBrandRepository, BrandRepository>();
-builder.Services.AddTransient<IProductTypeRepository, ProductTypeRepository>();
+builder.Services.AddInfraestructure(builder.Configuration);
+builder.Services.AddApplication(builder.Configuration);
 
-builder.Services.AddTransient<IBrandAppService, BrandAppService>();
-builder.Services.AddTransient<IProductTypeAppService, ProductTypeAppService>();
 
-builder.Services.AddScoped<IUnitOfWork>(provider => 
-{
-    var instance = provider.GetService<ECommerceDbContext>();
-    return instance;
-});
 
 var app = builder.Build();
 

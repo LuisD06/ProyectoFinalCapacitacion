@@ -121,3 +121,8 @@ E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.EComm
 E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.dll
 E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

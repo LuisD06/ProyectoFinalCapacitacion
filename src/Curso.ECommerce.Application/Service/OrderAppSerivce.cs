@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.enums;
 using Curso.ECommerce.Domain.Models;
@@ -14,12 +15,14 @@ namespace Curso.ECommerce.Application.Service
     {
         private readonly IOrderRepository repository;
         private readonly IProductAppService productService;
+        private readonly IMapper mapper;
         private readonly IValidator<OrderCreateDto> orderCreateValidator;
         private readonly IValidator<OrderItemCreateUpdateDto> orderItemCUDtoValidator;
 
         public OrderAppSerivce(
             IOrderRepository repository,
             IProductAppService productService,
+            IMapper mapper,
             IValidator<OrderCreateDto> orderCreateValidator,
             IValidator<OrderItemCreateUpdateDto> orderItemCUDtoValidator
         )
@@ -27,6 +30,7 @@ namespace Curso.ECommerce.Application.Service
             this.orderCreateValidator = orderCreateValidator;
             this.orderItemCUDtoValidator = orderItemCUDtoValidator;
             this.productService = productService;
+            this.mapper = mapper;
             this.repository = repository;
 
 
@@ -154,8 +158,6 @@ namespace Curso.ECommerce.Application.Service
 
         }
 
-
-        // TODO: Validar si las órdenes pueden eliminarse
         public async Task<bool> DeleteAsync(Guid orderId)
         {
             //Reglas Validaciones... 
@@ -165,7 +167,9 @@ namespace Curso.ECommerce.Application.Service
                 throw new ArgumentException($"La orden con el id: {orderId}, no existe");
             }
 
-            repository.Delete(orderEntity);
+            orderEntity.Status = OrderStatus.Canceled;
+
+            await repository.UpdateAsync(orderEntity);
             await repository.UnitOfWork.SaveChangesAsync();
 
             return true;
@@ -198,10 +202,18 @@ namespace Curso.ECommerce.Application.Service
             return orderDtoList.ToList();
         }
 
-        public Task UpdateAsync(Guid orderId, OrderUpdateDto order)
+        public async Task UpdateAsync(Guid orderId, OrderUpdateDto order)
         {
-            //TODO : Implementar update en order
-            throw new NotImplementedException();
+            var orderEntity = await repository.GetByIdAsync(orderId);
+            if (orderEntity == null) {
+                throw new ArgumentException($"La orden con el id {orderId} no existe");
+            }
+            // Mapeo DTO => Entidad
+            mapper.Map(order, orderEntity);
+
+            await repository.UpdateAsync(orderEntity);
+            await repository.UnitOfWork.SaveChangesAsync();
+            
         }
 
         public async Task<OrderDto> GetByIdAsync(Guid orderId)

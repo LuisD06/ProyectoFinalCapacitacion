@@ -23,5 +23,21 @@ namespace Curso.ECommerce.HttpApi.Controllers
         {
             return await service.CreateAsync(order);
         }
+        [HttpGet]
+        public ICollection<OrderDto> GetAll()
+        {
+            return service.GetAll();
+        }
+        [HttpPut]
+        public async Task UpdateAsync(Guid orderId, OrderUpdateDto order)
+        {
+            await service.UpdateAsync(orderId, order);
+        }
+
+        [HttpPut("cancel/{orderId}")]
+        public async Task<bool> CancelOrderAsync(Guid orderId)
+        {
+            return await service.DeleteAsync(orderId);
+        }
     }
 }

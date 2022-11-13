@@ -8,14 +8,11 @@ namespace Curso.ECommerce.Application.Dto
 {
     public class CartCreateDto
     {
-        [Required]
-        [StringLength(32)]
-        public Guid Id { get; set; }
 
         [Required]
         public Guid ClientId { get; set; }
 
-        public virtual ICollection<CartItemDto> CartItems { get; set; } = new List<CartItemDto>(); 
+        public virtual ICollection<CartItemCreateUpdateDto> CartItems { get; set; } = new List<CartItemCreateUpdateDto>(); 
 
         [Required]
         public DateTime Date { get; set; }

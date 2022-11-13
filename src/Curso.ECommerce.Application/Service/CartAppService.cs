@@ -6,6 +6,7 @@ using AutoMapper;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Domain.models;
 using Curso.ECommerce.Domain.repository;
+using FluentValidation;
 
 namespace Curso.ECommerce.Application.Service
 {
@@ -14,13 +15,32 @@ namespace Curso.ECommerce.Application.Service
         private readonly ICartRepository repository;
         private readonly IProductAppService productService;
         private readonly IMapper mapper;
+        private readonly IValidator<CartItemCreateUpdateDto> cartItemCUDtoValidator;
 
-        public CartAppService(ICartRepository repository, IProductAppService productService, IMapper mapper)
+        public CartAppService(ICartRepository repository, IProductAppService productService, IMapper mapper, IValidator<CartItemCreateUpdateDto> cartItemCUDtoValidator)
         {
+            this.cartItemCUDtoValidator = cartItemCUDtoValidator;
             this.repository = repository;
             this.productService = productService;
             this.mapper = mapper;
         }
+
+        public async Task<ICollection<CartDto>> AddItemAsync(CartItemCreateUpdateDto cartItem)
+        {
+            // Validaciones
+            var product = await productService.GetByIdAsync(cartItem.ProductId);
+            if (product == null) {
+                throw new ArgumentException($"El producto con el id {cartItem.ProductId} no existe");
+            }
+
+            var validationItem = await cartItemCUDtoValidator.ValidateAsync(cartItem);
+
+            if (!validationItem.IsValid) {
+                var errorItemList = validationItem.Errors.Select(e => e.ErrorMessage);
+            }
+
+        }
+
         public async Task<CartDto> CreateAsync(CartCreateDto cart)
         {
             // Validaciones
@@ -110,24 +130,6 @@ namespace Curso.ECommerce.Application.Service
         public ICollection<CartDto> GetAll()
         {
             var query = repository.GetAllIncluding(c => c.Client, c => c.CartItems);
-            // var cartDtoList = query.Select(c => new CartDto()
-            // {
-            //     CancellationDate = c.CancellationDate,
-            //     ClientId = c.ClientId,
-            //     Date = c.Date,
-            //     Id = c.Id,
-            //     Notes = c.Notes,
-            //     Total = c.Total,
-            //     CartItems = c.CartItems.Select(i => new CartItemDto()
-            //     {
-            //         Id = i.Id,
-            //         Notes = i.Notes,
-            //         CartId = i.CartId,
-            //         Price = i.Price,
-            //         ProductId = i.ProductId,
-            //         Quantity = i.Quantity
-            //     }).ToList()
-            // });
             var cartDtoList = query.Select(c => mapper.Map<CartDto>(c));
             return cartDtoList.ToList();
         }

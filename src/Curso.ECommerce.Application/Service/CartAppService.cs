@@ -35,6 +35,10 @@ namespace Curso.ECommerce.Application.Service
 
             var validationItem = await cartItemCUDtoValidator.ValidateAsync(cartItem);
 
+            if (!validationItem.IsValid) {
+                var errorItemList = validationItem.Errors.Select(e => e.ErrorMessage);
+            }
+
         }
 
         public async Task<CartDto> CreateAsync(CartCreateDto cart)

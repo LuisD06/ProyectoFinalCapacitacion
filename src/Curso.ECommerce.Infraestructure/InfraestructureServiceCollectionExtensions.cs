@@ -1,5 +1,7 @@
 using System.Diagnostics;
+using Curso.ECommerce.Domain.repository;
 using Curso.ECommerce.Domain.Repository;
+using Curso.ECommerce.Infraestructure.repository;
 using Curso.ECommerce.Infraestructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +18,7 @@ namespace Curso.ECommerce.Infraestructure
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<ICartRepository, CartRepository>();
 
             services.AddDbContext<ECommerceDbContext>(options =>
             {

@@ -24,6 +24,7 @@ namespace Curso.ECommerce.Application.Map
             CreateMap<Client, ClientDto>();
             CreateMap<ProductCreateUpdateDto, Product>();
             CreateMap<Product, ProductDto>();
+            CreateMap<OrderUpdateDto, Order>();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Curso.ECommerce.Application
             services.AddTransient<IProductAppService, ProductAppService>();
             services.AddTransient<IClientAppService, ClientAppService>();
             services.AddTransient<IOrderAppService, OrderAppSerivce>();
+            services.AddTransient<ICartAppService, CartAppService>();
 
             //Configurar la inyección de todos los profile que existen en un Assembly
             services.AddAutoMapper(Assembly.GetExecutingAssembly());

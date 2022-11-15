@@ -1,11 +1,13 @@
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Application.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Curso.ECommerce.HttpApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductAppService service;
@@ -14,6 +16,7 @@ namespace Curso.ECommerce.HttpApi.Controllers
             this.service = service;
         }
         [HttpGet]
+        [AllowAnonymous]
         public ICollection<ProductDto> GetAll()
         {
             return service.GetAll();
@@ -37,12 +40,14 @@ namespace Curso.ECommerce.HttpApi.Controllers
             return await service.DeleteAsync(productId);
         }
 
+        [AllowAnonymous]
         [HttpGet("/Products/type/{productType}")]
         public async Task<ICollection<ProductDto>> GetAllByType(string productType)
         {
             return await service.GetAllByTypeAsync(productType);
         }
 
+        [AllowAnonymous]
         [HttpGet("/Products/name/{productName}")]
         public async Task<ICollection<ProductDto>> GetAllByName(string productName)
         {

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Application.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Curso.ECommerce.HttpApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderAppService service;

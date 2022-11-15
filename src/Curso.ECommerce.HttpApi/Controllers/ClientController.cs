@@ -1,12 +1,14 @@
 
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Application.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Curso.ECommerce.HttpApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ClientController : ControllerBase
     {
         private readonly IClientAppService service;

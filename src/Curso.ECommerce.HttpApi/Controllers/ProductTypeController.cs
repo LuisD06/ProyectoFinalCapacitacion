@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Application.Service;
 using Curso.ECommerce.Domain.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Curso.ECommerce.HttpApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ProductTypeController : ControllerBase
     {
         private readonly IProductTypeAppService service;

@@ -1,11 +1,15 @@
 using Curso.ECommerce.Application.Dto;
 using Curso.ECommerce.Application.Service;
+using Curso.ECommerce.Domain.models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Curso.ECommerce.HttpApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class BrandController : ControllerBase
     {
         private readonly IBrandAppService service;
@@ -13,7 +17,7 @@ namespace Curso.ECommerce.HttpApi.Controllers
         {
             this.service = service;
         }
-
+        
         [HttpGet]
         public ICollection<BrandDto> GetAll()
         {

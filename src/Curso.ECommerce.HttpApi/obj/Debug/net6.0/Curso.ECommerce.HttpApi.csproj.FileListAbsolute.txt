@@ -126,3 +126,11 @@ C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpAp
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.dll
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
 C:\Users\Casa\Documents\Luis David\Proyecto Ecommerce\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\NetCore\Capacitacion\Proyecto Final\ProyectoFinalCapacitacion\src\Curso.ECommerce.HttpApi\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

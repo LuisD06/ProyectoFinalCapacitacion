@@ -91,6 +91,7 @@ namespace Curso.ECommerce.Application.Service
                                      Name = p.Name,
                                      Notes = p.Notes,
                                      Price = p.Price,
+                                     HasTax = p.HasTax,
                                      ProductType = p.ProductType.Name,
                                      ProductTypeId = p.ProductTypeId,
                                      Stock = p.Stock
@@ -171,6 +172,7 @@ namespace Curso.ECommerce.Application.Service
                         Name = p.Name,
                         Notes = p.Notes,
                         Price = p.Price,
+                        HasTax = p.HasTax,
                         ProductType = p.ProductType.Name,
                         ProductTypeId = p.ProductTypeId,
                         Stock = p.Stock

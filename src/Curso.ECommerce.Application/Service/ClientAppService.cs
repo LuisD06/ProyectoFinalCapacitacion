@@ -75,6 +75,17 @@ namespace Curso.ECommerce.Application.Service
             return clientListDto.ToList();
         }
 
+        public async Task<ClientDto> GetByIdAsync(Guid clientId)
+        {
+            var clientEntity = await repository.GetByIdAsync(clientId);
+            // Validaciones
+            if (clientEntity == null) {
+                throw new ArgumentException($"El cliente con el id {clientId} no existe");
+            }
+            var clientDto = mapper.Map<ClientDto>(clientEntity);
+            return clientDto;
+        }
+
         public async Task UpdateAsync(Guid clientId, ClientCreateUpdateDto client)
         {
             // Validaciones

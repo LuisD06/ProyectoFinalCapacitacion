@@ -19,6 +19,7 @@ namespace Curso.ECommerce.Infraestructure
             services.AddTransient<IClientRepository, ClientRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ICartRepository, CartRepository>();
+            services.AddTransient<ICreditRepository, CreditRepository>();
 
             services.AddDbContext<ECommerceDbContext>(options =>
             {

@@ -16,5 +16,7 @@ namespace Curso.ECommerce.Application.Service
         Task UpdateAsync (Guid clientId, ClientCreateUpdateDto client);
 
         Task<bool> DeleteAsync(Guid clientId);
+
+        Task<ClientDto> GetByIdAsync(Guid clientId);
     }
 }

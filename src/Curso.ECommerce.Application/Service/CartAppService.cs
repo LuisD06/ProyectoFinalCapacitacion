@@ -25,22 +25,6 @@ namespace Curso.ECommerce.Application.Service
             this.mapper = mapper;
         }
 
-        public async Task<ICollection<CartDto>> AddItemAsync(CartItemCreateUpdateDto cartItem)
-        {
-            // Validaciones
-            var product = await productService.GetByIdAsync(cartItem.ProductId);
-            if (product == null) {
-                throw new ArgumentException($"El producto con el id {cartItem.ProductId} no existe");
-            }
-
-            var validationItem = await cartItemCUDtoValidator.ValidateAsync(cartItem);
-
-            if (!validationItem.IsValid) {
-                var errorItemList = validationItem.Errors.Select(e => e.ErrorMessage);
-            }
-
-        }
-
         public async Task<CartDto> CreateAsync(CartCreateDto cart)
         {
             // Validaciones

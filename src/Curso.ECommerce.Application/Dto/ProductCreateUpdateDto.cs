@@ -12,10 +12,14 @@ namespace Curso.ECommerce.Application.Dto
 
         [Required]
         public string? Name { get; set; }
+        [Required]
         public decimal Price { get; set; }
         public string? Notes { get; set; }
         public DateTime? Expiration { get; set; }
+        [Required]
         public int? Stock { get; set; }
+        [Required]
+        public bool HasTax { get; set; }
 
         [Required]
         public string BrandId { get; set; }

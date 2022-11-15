@@ -20,6 +20,8 @@ namespace Curso.ECommerce.Application.Dto
         public DateTime? Expiration { get; set; }
         public int? Stock { get; set; }
 
+        public bool HasTax { get; set; }
+
         [Required]
         public string BrandId { get; set; }
         public string? Brand { get; set; }

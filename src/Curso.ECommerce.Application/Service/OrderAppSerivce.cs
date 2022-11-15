@@ -8,6 +8,7 @@ using Curso.ECommerce.Domain.enums;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
 using FluentValidation;
+using Microsoft.Extensions.Configuration;
 
 namespace Curso.ECommerce.Application.Service
 {
@@ -18,22 +19,23 @@ namespace Curso.ECommerce.Application.Service
         private readonly IMapper mapper;
         private readonly IValidator<OrderCreateDto> orderCreateValidator;
         private readonly IValidator<OrderItemCreateUpdateDto> orderItemCUDtoValidator;
+        private readonly IConfiguration configuration;
 
         public OrderAppSerivce(
             IOrderRepository repository,
             IProductAppService productService,
             IMapper mapper,
             IValidator<OrderCreateDto> orderCreateValidator,
-            IValidator<OrderItemCreateUpdateDto> orderItemCUDtoValidator
+            IValidator<OrderItemCreateUpdateDto> orderItemCUDtoValidator,
+            IConfiguration configuration
         )
         {
             this.orderCreateValidator = orderCreateValidator;
             this.orderItemCUDtoValidator = orderItemCUDtoValidator;
+            this.configuration = configuration;
             this.productService = productService;
             this.mapper = mapper;
             this.repository = repository;
-
-
         }
 
         public async Task<OrderDto> CreateAsync(OrderCreateDto order)
@@ -53,20 +55,21 @@ namespace Curso.ECommerce.Application.Service
             // TODO: Aplicar las validaciones en los order item
             var itemsError = string.Empty;
             foreach (var item in order.OrderItems)
-            {   
+            {
                 var itemValidation = await orderItemCUDtoValidator.ValidateAsync(item);
-                if (!itemValidation.IsValid) {
+                if (!itemValidation.IsValid)
+                {
                     var itemErrorList = itemValidation.Errors.Select(e => e.ErrorMessage);
                     var itemErrorString = string.Join(" - ", itemErrorList);
                     itemsError += itemErrorString;
                 }
             }
-            if (!string.IsNullOrEmpty(itemsError)) {
+            if (!string.IsNullOrEmpty(itemsError))
+            {
                 throw new ArgumentException(itemsError);
             }
-            //TODO: Validar cuando se envia en una orden mas de un item con el mismo producto
-            
-            
+
+
 
             // Stock del producto
             var productIdList = order.OrderItems.Select(i => i.ProductId);
@@ -75,11 +78,15 @@ namespace Curso.ECommerce.Application.Service
             if (itemProductList.Count == 0)
             {
                 // TODO: Especificar los productos que no existen
-                throw new ArgumentException("Los productos indicados no existen");
+                throw new ArgumentException("Los productos registrados en esta orden no existen");
             }
 
             Order orderEntity = new Order();
             string notes = String.Empty;
+            // Obtención del impuesto a aplicar
+            var tax = configuration.GetValue<decimal>("ProductTax");
+            decimal totalTax = 1 + tax / 100;
+            // Creacion de la orden
             foreach (var product in itemProductList)
             {
                 long quantity = order.OrderItems.Where(i => i.ProductId == product.Id).Select(i => i.Quantity).SingleOrDefault();
@@ -102,7 +109,7 @@ namespace Curso.ECommerce.Application.Service
                     }
                     OrderItem orderItem = new OrderItem();
                     orderItem.ProductId = product.Id;
-                    orderItem.Price = product.Price;
+                    orderItem.Price = product.HasTax ? product.Price * totalTax : product.Price;
                     orderItem.Quantity = quantity;
                     orderItem.Notes = order.OrderItems.Where(i => i.ProductId == product.Id).Select(i => i.Notes).SingleOrDefault();
                     orderEntity.AddOrderItem(orderItem);
@@ -112,28 +119,25 @@ namespace Curso.ECommerce.Application.Service
             {
                 throw new ArgumentException("No se ha podido crear la orden, productos no disponibles");
             }
-            else
-            {
-                orderEntity.ClientId = order.ClientId;
-                orderEntity.Status = OrderStatus.Registered;
-                orderEntity.Date = order.Date;
-                orderEntity.Total = orderEntity.OrderItems.Sum(x => x.Price * x.Quantity);
-                orderEntity.Notes = notes;
-
-                // Actualizar stock del producto
+            orderEntity.ClientId = order.ClientId;
+            orderEntity.Status = OrderStatus.Registered;
+            orderEntity.Date = order.Date;
+            orderEntity.Notes = notes;
+            
+            //Aplicacion de impuestos en caso de que el producto aplique
+            orderEntity.Total = orderEntity.OrderItems.Sum(x => x.Price * x.Quantity);
 
 
-                // Persistencia del objeto
-                orderEntity = await repository.AddAsync(orderEntity);
-                await repository.UnitOfWork.SaveChangesAsync();
+            // Persistencia del objeto
+            orderEntity = await repository.AddAsync(orderEntity);
+            await repository.UnitOfWork.SaveChangesAsync();
 
-                var orderDto = await GetByIdAsync(orderEntity.Id);
+            var orderDto = await GetByIdAsync(orderEntity.Id);
 
-                // Confirmacion de la orden
-                await ConfirmOrder(orderEntity);
+            // Confirmacion de la orden
+            await ConfirmOrder(orderEntity);
 
-                return orderDto;
-            }
+            return orderDto;
 
         }
 
@@ -205,7 +209,8 @@ namespace Curso.ECommerce.Application.Service
         public async Task UpdateAsync(Guid orderId, OrderUpdateDto order)
         {
             var orderEntity = await repository.GetByIdAsync(orderId);
-            if (orderEntity == null) {
+            if (orderEntity == null)
+            {
                 throw new ArgumentException($"La orden con el id {orderId} no existe");
             }
             // Mapeo DTO => Entidad
@@ -213,15 +218,20 @@ namespace Curso.ECommerce.Application.Service
 
             await repository.UpdateAsync(orderEntity);
             await repository.UnitOfWork.SaveChangesAsync();
-            
+
         }
 
         public async Task<OrderDto> GetByIdAsync(Guid orderId)
         {
             var query = repository.GetAllIncluding(o => o.Client, o => o.OrderItems);
-            query = query.Where(o => o.Id == orderId);
+            var orderQuery = query.Where(o => o.Id == orderId);
 
-            var orderDto = query.Select(o => new OrderDto()
+            if (orderQuery == null)
+            {
+                throw new ArgumentException($"No existe una orden con el id {orderId}");
+            }
+
+            var orderDto = orderQuery.Select(o => new OrderDto()
             {
                 CancellationDate = o.CancellationDate,
                 ClientId = o.ClientId,

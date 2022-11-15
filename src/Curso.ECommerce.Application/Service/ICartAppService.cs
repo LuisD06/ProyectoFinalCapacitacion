@@ -18,6 +18,5 @@ namespace Curso.ECommerce.Application.Service
 
         Task<CartDto> GetByIdAsync(Guid cartId);
 
-        Task<ICollection<CartDto>> AddItemAsync(CartItemCreateUpdateDto cartItem);
     }
 }

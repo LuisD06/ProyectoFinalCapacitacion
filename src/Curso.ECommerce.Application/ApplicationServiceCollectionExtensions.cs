@@ -18,17 +18,27 @@ namespace Curso.ECommerce.Application
             services.AddTransient<IClientAppService, ClientAppService>();
             services.AddTransient<IOrderAppService, OrderAppSerivce>();
             services.AddTransient<ICartAppService, CartAppService>();
+            services.AddTransient<ICreditAppService, CreditAppService>();
+            services.AddTransient<IUserAppService, UserAppService>();
 
             //Configurar la inyección de todos los profile que existen en un Assembly
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             // Configurar los validadores
             services.AddScoped<IValidator<CreditCreateDto>, CreditCreateDtoValidator>();
+
+            services.AddScoped<IValidator<CartItemCreateUpdateDto>, CartItemCreateUpdateDtoValidator>();
+
             services.AddScoped<IValidator<OrderCreateDto>, OrderCreateDtoValidator>();
+
             services.AddScoped<IValidator<BrandCreateUpdateDto>, BrandCreateUpdateDtoValidator>();
+
             services.AddScoped<IValidator<ProductTypeCreateUpdateDto>, ProductTypeCreateUpdateDtoValidator>();
+
             services.AddScoped<IValidator<ProductCreateUpdateDto>, ProductCreateUpdateDtoValidator>();
+
             services.AddScoped<IValidator<ClientCreateUpdateDto>, ClientCreateUpdateDtoValidator>();
+            
             services.AddScoped<IValidator<OrderItemCreateUpdateDto>, OrderItemCreateUpdateDtoValidator>();
 
             return services;

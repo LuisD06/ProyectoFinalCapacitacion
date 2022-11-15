@@ -4,5 +4,7 @@ namespace Curso.ECommerce.Domain.enums
     {
         Pending = 0,
         Canceled = 1,
+
+        Paid = 3
     }
 }

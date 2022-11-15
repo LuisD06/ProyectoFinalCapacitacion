@@ -12,13 +12,9 @@ namespace Curso.ECommerce.Application.Dto
         public int Payments { get; set; }
         [Required]
         public DateTime PaymentDate { get; set; }
-        [Required]
-        public CreditStatus Status { get; set; } 
 
         [Required]
         public Guid OrderId { get; set; }
 
-        [Required]
-        public Guid ClientId { get; set; }
     }
 }

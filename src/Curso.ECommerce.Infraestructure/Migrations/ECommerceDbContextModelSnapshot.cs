@@ -133,6 +133,39 @@ namespace Curso.ECommerce.Infraestructure.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("Curso.ECommerce.Domain.models.Credit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Payments")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Tax")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Credits");
+                });
+
             modelBuilder.Entity("Curso.ECommerce.Domain.Models.Order", b =>
                 {
                     b.Property<Guid>("Id")
@@ -210,6 +243,9 @@ namespace Curso.ECommerce.Infraestructure.Migrations
                     b.Property<DateTime?>("Expiration")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("HasTax")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(80)
@@ -226,6 +262,7 @@ namespace Curso.ECommerce.Infraestructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("Stock")
+                        .IsRequired()
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -281,6 +318,25 @@ namespace Curso.ECommerce.Infraestructure.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Curso.ECommerce.Domain.models.Credit", b =>
+                {
+                    b.HasOne("Curso.ECommerce.Domain.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Curso.ECommerce.Domain.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Curso.ECommerce.Domain.Models.Order", b =>

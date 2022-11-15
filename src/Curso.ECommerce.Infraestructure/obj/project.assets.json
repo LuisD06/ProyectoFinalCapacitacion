@@ -1517,32 +1517,34 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Casa\\.nuget\\packages\\": {}
+    "C:\\Users\\David\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
+      "projectUniqueName": "e:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
       "projectName": "Curso.ECommerce.Infraestructure",
-      "projectPath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
-      "packagesPath": "C:\\Users\\Casa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Infraestructure\\obj\\",
+      "projectPath": "e:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
+      "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
+      "outputPath": "e:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Casa\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj": {
-              "projectPath": "C:\\Users\\Casa\\Documents\\Luis David\\Proyecto Ecommerce\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj"
+            "E:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj": {
+              "projectPath": "E:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Domain\\Curso.ECommerce.Domain.csproj"
             }
           }
         }

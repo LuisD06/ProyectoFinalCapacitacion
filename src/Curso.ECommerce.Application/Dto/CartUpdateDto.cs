@@ -9,17 +9,6 @@ namespace Curso.ECommerce.Application.Dto
     public class CartUpdateDto
     {
 
-        public virtual ICollection<CartItemDto> CartItems { get; set; } = new List<CartItemDto>(); 
-
-        [Required]
-        public DateTime Date { get; set; }
-
-        public DateTime? CancellationDate { get; set; }
-
-
-        [Required]
-        public decimal Total { get; set; }
-
         public string? Notes { get; set; }
     }
 }

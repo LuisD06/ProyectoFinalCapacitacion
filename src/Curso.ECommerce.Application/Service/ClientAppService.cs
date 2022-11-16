@@ -1,5 +1,6 @@
 using AutoMapper;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
 using FluentValidation;
@@ -70,8 +71,6 @@ namespace Curso.ECommerce.Application.Service
 
             var clientListDto = clientList.Select(c => mapper.Map<ClientDto>(c));
 
-            // TODO: Revisar de que forma son devueltas las ordenes de los usuarios
-
             return clientListDto.ToList();
         }
 
@@ -118,6 +117,65 @@ namespace Curso.ECommerce.Application.Service
             await repository.UnitOfWork.SaveChangesAsync();
 
             return;
+        }
+
+        public PaginatedList<ClientDto> GetAllPaginated(int limit, int offset)
+        {
+            var consulta = repository.GetAll();
+            var totalConsulta = consulta.Count();
+            if (limit > totalConsulta) {
+                limit = totalConsulta;
+            }
+            var clientDtoList = consulta.Skip(offset).Take(limit).Select(b => mapper.Map<ClientDto>(b));
+
+            var result = new PaginatedList<ClientDto>();
+            result.Total = clientDtoList.Count();
+            result.List = clientDtoList.ToList();
+
+            return result;
+        }
+
+        public List<ClientDto> GetAllByNameEmail(string name, string email)
+        {
+            var clientQuery = repository.GetAll();
+            if (!string.IsNullOrEmpty(name)) 
+            {
+                clientQuery = clientQuery.Where(
+                    c => c.Name.ToLower().Contains(name.ToLower()) ||
+                    c.Name.ToLower().StartsWith(name.ToLower())
+                );
+            }
+            if (!string.IsNullOrEmpty(email)) {
+                clientQuery = clientQuery.Where(
+                    c => c.Email.ToLower().Contains(email.ToLower()) ||
+                    c.Email.ToLower().StartsWith(email.ToLower())
+                );
+            }
+
+            var clientDtoList = clientQuery.Select(c => mapper.Map<ClientDto>(c));
+
+            return clientDtoList.ToList();
+        }
+        public List<ClientDto> GetAllByCountryAddress(string country, string address)
+        {
+            var clientQuery = repository.GetAll();
+            if (!string.IsNullOrEmpty(country)) 
+            {
+                clientQuery = clientQuery.Where(
+                    c => c.Country.ToLower().Contains(country.ToLower()) ||
+                    c.Country.ToLower().StartsWith(country.ToLower())
+                );
+            }
+            if (!string.IsNullOrEmpty(address)) {
+                clientQuery = clientQuery.Where(
+                    c => c.Address.ToLower().Contains(address.ToLower()) ||
+                    c.Address.ToLower().StartsWith(address.ToLower())
+                );
+            }
+
+            var clientDtoList = clientQuery.Select(c => mapper.Map<ClientDto>(c));
+
+            return clientDtoList.ToList();
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Curso.ECommerce.Application.Map
             CreateMap<Cart, CartDto>();
             CreateMap<CartItem, CartItemDto>();
             CreateMap<CartItemCreateUpdateDto, CartItem>();
+            CreateMap<CartUpdateDto, Cart>();
 
             CreateMap<CreditCreateDto, Credit>();
             CreateMap<Credit, CreditDto>()
@@ -32,12 +33,19 @@ namespace Curso.ECommerce.Application.Map
             CreateMap<Client, ClientDto>();
 
             CreateMap<ProductCreateUpdateDto, Product>();
-            CreateMap<Product, ProductDto>();
+            CreateMap<Product, ProductDto>()
+                .ForMember(p => p.Brand, opt => opt.MapFrom(src => src.Brand.Name))
+                .ForMember(p => p.ProductType, opt => opt.MapFrom(src => src.ProductType.Name));
             CreateMap<ProductDto, Product>()
                 .ForMember(p => p.Brand, opt => opt.Ignore())
                 .ForMember(p => p.ProductType, opt => opt.Ignore());
 
             CreateMap<OrderUpdateDto, Order>();
+            CreateMap<Order, OrderDto>()
+                .ForMember(o => o.Client, opt => opt.MapFrom(src => src.Client.Name));
+
+            CreateMap<OrderItem, OrderItemDto>()
+                .ForMember(o => o.Product, opt => opt.MapFrom(src => src.Product.Name));
         }
     }
 }

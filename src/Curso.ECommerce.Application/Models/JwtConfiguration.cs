@@ -25,6 +25,6 @@ namespace Curso.ECommerce.Application.Models
         /// <summary>
         /// Tiempo expiracion del Token. TimeSpan
         /// </summary>
-        public TimeSpan Expires { get; set; } = TimeSpan.FromMinutes(20);
+        public TimeSpan Expires { get; set; } = TimeSpan.FromMinutes(60);
     }
 }

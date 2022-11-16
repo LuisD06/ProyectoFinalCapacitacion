@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AutoMapper;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Domain.enums;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
@@ -52,7 +55,6 @@ namespace Curso.ECommerce.Application.Service
                 throw new ArgumentException(errorString);
             }
 
-            // TODO: Aplicar las validaciones en los order item
             var itemsError = string.Empty;
             foreach (var item in order.OrderItems)
             {
@@ -74,11 +76,10 @@ namespace Curso.ECommerce.Application.Service
             // Stock del producto
             var productIdList = order.OrderItems.Select(i => i.ProductId);
             var itemProductList = await productService.GetAllByIdAsync(productIdList.ToList());
-            // TODO: Colocar logs en el caso de que no exista algun producto en específico
+     
             if (itemProductList.Count == 0)
             {
-                // TODO: Especificar los productos que no existen
-                throw new ArgumentException("Los productos registrados en esta orden no existen");
+                throw new ArgumentException("Ninguno de los productos registrados en esta orden existen");
             }
 
             Order orderEntity = new Order();
@@ -143,7 +144,7 @@ namespace Curso.ECommerce.Application.Service
 
         private async Task ConfirmOrder(Order order)
         {
-            // TODO: Proceso de confirmacion de la orden 
+            // Proceso de confirmacion de la orden 
             var productIdList = order.OrderItems.Select(i => i.ProductId);
             var productList = await productService.GetAllByIdAsync(productIdList.ToList());
             // Actualizacion del stock de los productos
@@ -172,6 +173,7 @@ namespace Curso.ECommerce.Application.Service
             }
 
             orderEntity.Status = OrderStatus.Canceled;
+            orderEntity.CancellationDate = DateTime.Now;
 
             await repository.UpdateAsync(orderEntity);
             await repository.UnitOfWork.SaveChangesAsync();
@@ -254,6 +256,87 @@ namespace Curso.ECommerce.Application.Service
                 }).ToList()
             }).SingleOrDefault();
             return orderDto;
+        }
+        public PaginatedList<OrderDto> GetAllPaginated(int limit, int offset)
+        {
+            var query = repository.GetAllIncluding(o => o.OrderItems, o => o.Client);
+            var totalQuery = query.Count();
+            if (limit > totalQuery) {
+                limit = totalQuery;
+            }
+            // var orderDtoList = consulta.Skip(offset).Take(limit).Select(o => mapper.Map<OrderDto>(o));
+            var orderDtoList = query.Skip(offset).Take(limit).Select(o => new OrderDto()
+            {
+                CancellationDate = o.CancellationDate,
+                ClientId = o.ClientId,
+                Client = o.Client.Name,
+                Date = o.Date,
+                Id = o.Id,
+                Notes = o.Notes,
+                Status = o.Status,
+                Total = o.Total,
+                OrderItems = o.OrderItems.Select(i => new OrderItemDto()
+                {
+                    Id = i.Id,
+                    Notes = i.Notes,
+                    OrderId = i.OrderId,
+                    Price = i.Price,
+                    Product = i.Product.Name,
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity
+                }).ToList()
+            });
+            
+            var result = new PaginatedList<OrderDto>();
+            result.Total = orderDtoList.Count();
+            result.List = orderDtoList.ToList();
+
+            return result;
+        }
+
+        public List<OrderDto> GetByClientTotal(string identification, decimal minTotal = 0, decimal maxTotal = 0)
+        {
+            var orderQuery = repository.GetAllIncluding(o => o.Client, o => o.OrderItems);
+            if (!string.IsNullOrEmpty(identification))
+            {
+                orderQuery = orderQuery.Where(o => 
+                    o.Client.Identification.ToLower().Contains(identification.ToLower()) ||
+                    o.Client.Identification.ToLower().StartsWith(identification.ToLower())
+                );
+            }
+            if(maxTotal > minTotal) {
+                orderQuery = orderQuery.Where(o => 
+                    o.Total >= minTotal && o.Total <= maxTotal
+                );
+            }
+            if(minTotal > 0 && maxTotal <= 0) {
+                orderQuery = orderQuery.Where(o => 
+                    o.Total >= minTotal
+                );
+            }
+            var orderDtoList = orderQuery.Select(o => new OrderDto()
+            {
+                CancellationDate = o.CancellationDate,
+                ClientId = o.ClientId,
+                Client = o.Client.Name,
+                Date = o.Date,
+                Id = o.Id,
+                Notes = o.Notes,
+                Status = o.Status,
+                Total = o.Total,
+                OrderItems = o.OrderItems.Select(i => new OrderItemDto()
+                {
+                    Id = i.Id,
+                    Notes = i.Notes,
+                    OrderId = i.OrderId,
+                    Price = i.Price,
+                    Product = i.Product.Name,
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity
+                }).ToList()
+            });
+
+            return orderDtoList.ToList();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 
 namespace Curso.ECommerce.Application.Service
 {
@@ -27,5 +28,10 @@ namespace Curso.ECommerce.Application.Service
         Task<ICollection<ProductDto>> GetAllByNameAsync(string productName, Guid productId);
         Task UpdateStockAsync(Guid productId, ProductUpdateStockDto product);
 
+        PaginatedList<ProductDto> GetAllPaginated(int limit, int offset);
+
+        List<ProductDto> GetAllByNameType(string productName, string productType);
+
+        List<ProductDto> GetAllByTaxPrice(bool hasTax, decimal minPrice = 0, decimal maxPrice = 0);
     }
 }

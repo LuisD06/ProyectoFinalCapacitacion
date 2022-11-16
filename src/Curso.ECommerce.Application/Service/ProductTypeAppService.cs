@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
 using FluentValidation;
@@ -116,6 +117,21 @@ namespace Curso.ECommerce.Application.Service
             await repository.UnitOfWork.SaveChangesAsync();
 
             return;
+        }
+        public PaginatedList<ProductTypeDto> GetAllPaginated(int limit, int offset)
+        {
+            var consulta = repository.GetAll();
+            var totalConsulta = consulta.Count();
+            if (limit > totalConsulta) {
+                limit = totalConsulta;
+            }
+            var productTypeDtoList = consulta.Skip(offset).Take(limit).Select(p => mapper.Map<ProductTypeDto>(p));
+
+            var result = new PaginatedList<ProductTypeDto>();
+            result.Total = productTypeDtoList.Count();
+            result.List = productTypeDtoList.ToList();
+
+            return result;
         }
     }
 }

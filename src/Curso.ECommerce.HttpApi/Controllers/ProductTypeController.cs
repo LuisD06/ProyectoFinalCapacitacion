@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Application.Service;
 using Curso.ECommerce.Domain.Repository;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +22,14 @@ namespace Curso.ECommerce.HttpApi.Controllers
         {
             this.service = service;
         }
+        [HttpGet("paginated")]
+        [AllowAnonymous]
+        public PaginatedList<ProductTypeDto> GetAllPaginated(int limit = 10, int offset = 0)
+        {
+            return service.GetAllPaginated(limit, offset);
+        }
         [HttpGet]
+        [AllowAnonymous]
         public ICollection<ProductTypeDto> GetAll()
         {
             return service.GetAll();
@@ -44,5 +52,6 @@ namespace Curso.ECommerce.HttpApi.Controllers
         {
             return await service.DeleteAsync(productTypeId);
         }
+
     }
 }

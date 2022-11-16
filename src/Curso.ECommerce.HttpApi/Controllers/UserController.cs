@@ -14,7 +14,7 @@ namespace Curso.ECommerce.HttpApi.Controllers
         {
             this.service = service;
         }
-        [HttpPost]
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<string> LoginAsync(UserLoginDto user)
         {

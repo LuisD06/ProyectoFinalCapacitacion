@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Domain.models;
 using Curso.ECommerce.Domain.repository;
 using FluentValidation;
@@ -35,10 +32,9 @@ namespace Curso.ECommerce.Application.Service
             // Stock del producto
             var productIdList = cart.CartItems.Select(i => i.ProductId);
             var itemProductList = await productService.GetAllByIdAsync(productIdList.ToList());
-            // TODO: Colocar logs en el caso de que no exista algun producto en específico
+
             if (itemProductList.Count == 0)
             {
-                // TODO: Especificar los productos que no existen
                 throw new ArgumentException("Los productos indicados no existen");
             }
 
@@ -145,10 +141,97 @@ namespace Curso.ECommerce.Application.Service
             return cartDto;
         }
 
-        public Task UpdateAsync(Guid cartId, CartUpdateDto cart)
+        public async Task UpdateAsync(Guid cartId, CartUpdateDto cart)
         {
-            //TODO : Implementar update en order
-            throw new NotImplementedException();
+            var cartEntity = await repository.GetByIdAsync(cartId);
+            if (cartEntity == null) {
+                throw new ArgumentException($"No se ha encontrado un carrito con el id {cartId}");
+            }
+            // Mapeo dto => entity
+            mapper.Map(cart, cartEntity);
+            await repository.UpdateAsync(cartEntity);
+            await repository.UnitOfWork.SaveChangesAsync();
+        }
+        public PaginatedList<CartDto> GetAllPaginated(int limit, int offset)
+        {
+            var query = repository.GetAllIncluding(c => c.CartItems, c => c.Client);
+            var totalConsulta = query.Count();
+            if (limit > totalConsulta) {
+                limit = totalConsulta;
+            }
+            // var orderDtoList = consulta.Skip(offset).Take(limit).Select(o => mapper.Map<OrderDto>(o));
+            var cartDtoList = query.Skip(offset).Take(limit).Select(c => new CartDto()
+            {
+                CancellationDate = c.CancellationDate,
+                ClientId = c.ClientId,
+                Date = c.Date,
+                Id = c.Id,
+                Notes = c.Notes,
+                Total = c.Total,
+                CartItems = c.CartItems.Select(i => new CartItemDto()
+                {
+                    Id = i.Id,
+                    Notes = i.Notes,
+                    CartId = i.CartId,
+                    Price = i.Price,
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity
+                }).ToList()
+            });
+            
+            var result = new PaginatedList<CartDto>();
+            result.Total = cartDtoList.Count();
+            result.List = cartDtoList.ToList();
+
+            return result;
+        }
+        public List<CartDto> GetByDateItemCount(DateTime startDate, DateTime endDate, int minItemCount = 0, int maxItemCount = 0)
+        {
+            var cartQuery = repository.GetAllIncluding(c => c.Client, c => c.CartItems);
+            if (startDate < endDate) {
+                cartQuery = cartQuery.Where(c => 
+                    c.Date >= startDate && c.Date <= endDate
+                );
+            }
+            if(startDate == endDate) {
+                cartQuery = cartQuery.Where(c => 
+                    c.Date == startDate
+                );
+            }
+            if (minItemCount < maxItemCount) {
+                cartQuery = cartQuery.Where(c => 
+                    c.CartItems.Count >= minItemCount && c.CartItems.Count <= maxItemCount
+                );
+            }
+            if (minItemCount > 0 && maxItemCount <= 0) {
+                cartQuery = cartQuery.Where(c => 
+                    c.CartItems.Count >= minItemCount
+                );
+            }
+            if (minItemCount == maxItemCount) {
+                cartQuery = cartQuery.Where(c => 
+                    c.CartItems.Count == minItemCount
+                );
+            }
+            var cartDtoList = cartQuery.Select(c => new CartDto()
+            {
+                CancellationDate = c.CancellationDate,
+                ClientId = c.ClientId,
+                Date = c.Date,
+                Id = c.Id,
+                Notes = c.Notes,
+                Total = c.Total,
+                CartItems = c.CartItems.Select(i => new CartItemDto()
+                {
+                    Id = i.Id,
+                    Notes = i.Notes,
+                    CartId = i.CartId,
+                    Price = i.Price,
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity
+                }).ToList()
+            });
+            return cartDtoList.ToList();
         }
     }
 }

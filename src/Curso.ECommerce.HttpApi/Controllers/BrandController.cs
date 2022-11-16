@@ -1,4 +1,5 @@
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Application.Service;
 using Curso.ECommerce.Domain.models;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,15 @@ namespace Curso.ECommerce.HttpApi.Controllers
             this.service = service;
         }
         
+        [HttpGet("paginated")]
+        [AllowAnonymous]
+        public PaginatedList<BrandDto> GetAllPaginated(int limit = 10, int offset = 0)
+        {
+            return service.GetAllPaginated(limit, offset);
+        }
+        
         [HttpGet]
+        [AllowAnonymous]
         public ICollection<BrandDto> GetAll()
         {
             return service.GetAll();

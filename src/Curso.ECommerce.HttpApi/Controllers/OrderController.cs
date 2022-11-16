@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Application.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,11 @@ namespace Curso.ECommerce.HttpApi.Controllers
             this.service = service;
 
         }
+        [HttpGet("paginated")]
+        public PaginatedList<OrderDto> GetAllPaginated(int limit = 10, int offset = 0)
+        {
+            return service.GetAllPaginated(limit, offset);
+        }
         [HttpPost]
         public async Task<OrderDto> CreateAsync(OrderCreateDto order)
         {
@@ -36,10 +42,17 @@ namespace Curso.ECommerce.HttpApi.Controllers
             await service.UpdateAsync(orderId, order);
         }
 
-        [HttpPut("cancel/{orderId}")]
+        [HttpDelete("cancel/{orderId}")]
         public async Task<bool> CancelOrderAsync(Guid orderId)
         {
             return await service.DeleteAsync(orderId);
         }
+
+        [HttpGet("/Orders/client/total")]
+        public List<OrderDto> GetAllByClientTotal(string? clientIdentification, decimal minTotal, decimal maxTotal)
+        {
+            return service.GetByClientTotal(clientIdentification, minTotal, maxTotal);
+        }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
 using FluentValidation;
@@ -187,7 +188,10 @@ namespace Curso.ECommerce.Application.Service
         public async Task<ICollection<ProductDto>> GetAllByTypeAsync(string productType)
         {
             var query = repository.GetAllIncluding(p => p.Brand, p => p.ProductType);
-            query = query.Where(p => p.ProductType.Name.Contains(productType) || p.ProductType.Name.StartsWith(productType));
+            query = query.Where(p => 
+                p.ProductType.Name.ToLower().Contains(productType.ToLower()) || 
+                p.ProductType.Name.ToLower().StartsWith(productType.ToLower())
+            );
             var productDtoList = query.Select(p => new ProductDto(){
                 Brand = p.Brand.Name,
                 BrandId = p.BrandId,
@@ -207,7 +211,10 @@ namespace Curso.ECommerce.Application.Service
         {
             var query = repository.GetAllIncluding(p => p.Brand, p => p.ProductType);
             query = query.Where(p => p.Id != productId);
-            query = query.Where(p => p.ProductType.Name.Contains(productType) || p.ProductType.Name.StartsWith(productType));
+            query = query.Where(p => 
+                p.ProductType.Name.ToLower().Contains(productType.ToLower()) || 
+                p.ProductType.Name.ToLower().StartsWith(productType.ToLower())
+            );
             var productDtoList = query.Select(p => new ProductDto(){
                 Brand = p.Brand.Name,
                 BrandId = p.BrandId,
@@ -227,7 +234,10 @@ namespace Curso.ECommerce.Application.Service
         public async Task<ICollection<ProductDto>> GetAllByNameAsync(string productName)
         {
             var query = repository.GetAllIncluding(p => p.Brand, p => p.ProductType);
-            query = query.Where(p => p.Name.StartsWith(productName) || p.Name.Contains(productName));
+            query = query.Where(p => 
+                p.Name.ToLower().StartsWith(productName.ToLower()) || 
+                p.Name.ToLower().Contains(productName.ToLower())
+            );
 
             var productDtoList = query.Select(p => new ProductDto(){
                 Brand = p.Brand.Name,
@@ -248,7 +258,10 @@ namespace Curso.ECommerce.Application.Service
         {
             var query = repository.GetAllIncluding(p => p.Brand, p => p.ProductType);
             query = query.Where(p => p.Id != productId);
-            query = query.Where(p => p.Name.StartsWith(productName) || p.Name.Contains(productName));
+            query = query.Where(p => 
+                p.Name.ToLower().StartsWith(productName.ToLower()) || 
+                p.Name.ToLower().Contains(productName.ToLower())
+            );
 
             var productDtoList = query.Select(p => new ProductDto(){
                 Brand = p.Brand.Name,
@@ -282,5 +295,63 @@ namespace Curso.ECommerce.Application.Service
 
             return;
         }
+    
+        public PaginatedList<ProductDto> GetAllPaginated(int limit, int offset)
+        {
+            var consulta = repository.GetAllIncluding(p => p.ProductType, p => p.Brand);
+            var totalConsulta = consulta.Count();
+            if (limit > totalConsulta) {
+                limit = totalConsulta;
+            }
+            var productDtoList = consulta.Skip(offset).Take(limit).Select(p => mapper.Map<ProductDto>(p));
+
+            var result = new PaginatedList<ProductDto>();
+            result.Total = productDtoList.Count();
+            result.List = productDtoList.ToList();
+
+            return result;
+        }
+    
+        public List<ProductDto> GetAllByNameType(string productName, string productType)
+        {
+            var productQuery = repository.GetAllIncluding(p => p.ProductType, p => p.Brand);
+            if (!string.IsNullOrEmpty(productName)) {
+                productQuery = productQuery.Where(
+                    p => p.Name.ToLower().Contains(productName.ToLower()) ||
+                    p.Name.ToLower().StartsWith(productName.ToLower())
+                );
+            }
+            if (!string.IsNullOrEmpty(productType)) {
+                productQuery = productQuery.Where(
+                    p => p.ProductType.Name.ToLower().Contains(productType.ToLower()) ||
+                    p.ProductType.Name.ToLower().StartsWith(productType.ToLower())
+                );
+            }
+
+            // Mapeo entidad => dto
+            var productDtoList = productQuery.Select(p => mapper.Map<ProductDto>(p));
+            
+            return productDtoList.ToList();
+        }
+
+        public List<ProductDto> GetAllByTaxPrice(bool hasTax, decimal minPrice = 0, decimal maxPrice = 0)
+        {
+            var productQuery = repository.GetAllIncluding(p => p.ProductType, p => p.Brand);
+            productQuery  = productQuery.Where(p => p.HasTax == hasTax);
+            if (minPrice < maxPrice) {
+                productQuery = productQuery.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+            }
+            if (minPrice > 0 && maxPrice <= 0) {
+                productQuery = productQuery.Where(p => p.Price >= minPrice);
+            }
+            // Mapeo entidad => dto
+            var productDtoList = productQuery.Select(p => mapper.Map<ProductDto>(p));
+
+            return productDtoList.ToList();
+            
+            
+        }
+
+
     }
 }

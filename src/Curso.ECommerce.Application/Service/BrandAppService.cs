@@ -1,6 +1,7 @@
 using System.Text.Json;
 using AutoMapper;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Domain.Models;
 using Curso.ECommerce.Domain.Repository;
 using FluentValidation;
@@ -22,7 +23,8 @@ namespace Curso.ECommerce.Application.Service
         {
             // Validaciones
             var validationResult = await brandCreateUpdateValidator.ValidateAsync(brand);
-            if (!validationResult.IsValid) {
+            if (!validationResult.IsValid)
+            {
                 var errorList = validationResult.Errors.Select(
                     e => e.ErrorMessage
                 );
@@ -39,7 +41,7 @@ namespace Curso.ECommerce.Application.Service
             // Mapeo Dto => Entidad
             var brandEntity = mapper.Map<Brand>(brand);
             Guid guidToken = Guid.NewGuid();
-            brandEntity.Id =  guidToken.ToString("N").Substring(0,12).ToUpper();
+            brandEntity.Id = guidToken.ToString("N").Substring(0, 12).ToUpper();
 
             // Persistencia del objeto
             brandEntity = await repository.AddAsync(brandEntity);
@@ -47,7 +49,7 @@ namespace Curso.ECommerce.Application.Service
 
             // Mapeo Entidad => Dto
             var createdBrand = mapper.Map<BrandDto>(brandEntity);
-            
+
 
             return createdBrand;
         }
@@ -80,7 +82,8 @@ namespace Curso.ECommerce.Application.Service
         {
             // Validaciones
             var validationResult = await brandCreateUpdateValidator.ValidateAsync(brand);
-            if (!validationResult.IsValid) {
+            if (!validationResult.IsValid)
+            {
                 var errorList = validationResult.Errors.Select(
                     e => e.ErrorMessage
                 );
@@ -101,7 +104,7 @@ namespace Curso.ECommerce.Application.Service
             }
 
             //Mapeo Dto => Entidad
-            mapper.Map<BrandCreateUpdateDto,Brand>(brand, brandEntity);
+            mapper.Map<BrandCreateUpdateDto, Brand>(brand, brandEntity);
 
             //Persistencia objeto
             await repository.UpdateAsync(brandEntity);
@@ -109,7 +112,23 @@ namespace Curso.ECommerce.Application.Service
 
             return;
         }
+
+        public PaginatedList<BrandDto> GetAllPaginated(int limit, int offset)
+        {
+            var consulta = repository.GetAll();
+            var totalConsulta = consulta.Count();
+            if (limit > totalConsulta) {
+                limit = totalConsulta;
+            }
+            var brandDtoList = consulta.Skip(offset).Take(limit).Select(b => mapper.Map<BrandDto>(b));
+
+            var result = new PaginatedList<BrandDto>();
+            result.Total = brandDtoList.Count();
+            result.List = brandDtoList.ToList();
+
+            return result;
+        }
     
-        
+    
     }
 }

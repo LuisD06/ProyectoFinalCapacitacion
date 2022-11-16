@@ -1,4 +1,5 @@
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Application.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,12 @@ namespace Curso.ECommerce.HttpApi.Controllers
         public ProductController(IProductAppService service)
         {
             this.service = service;
+        }
+        [HttpGet("paginated")]
+        [AllowAnonymous]
+        public PaginatedList<ProductDto> GetAllPaginated(int limit = 10, int offset = 0)
+        {
+            return service.GetAllPaginated(limit, offset);
         }
         [HttpGet]
         [AllowAnonymous]
@@ -52,6 +59,20 @@ namespace Curso.ECommerce.HttpApi.Controllers
         public async Task<ICollection<ProductDto>> GetAllByName(string productName)
         {
             return await service.GetAllByNameAsync(productName);
+        }
+
+        
+        [HttpGet("/Products/name/type")]
+        [AllowAnonymous]
+        public List<ProductDto> GetAllByNameType(string? productName, string? productType)
+        {
+            return service.GetAllByNameType(productName, productType);
+        }
+        [HttpGet("/Products/has-tax/price")]
+        [AllowAnonymous]
+        public List<ProductDto> GetAllByTaxPrice(bool hasTax, decimal minPrice, decimal maxPrice)
+        {
+            return service.GetAllByTaxPrice(hasTax, minPrice, maxPrice);
         }
     }
 }

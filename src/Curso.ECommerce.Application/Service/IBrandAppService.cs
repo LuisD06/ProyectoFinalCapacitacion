@@ -1,4 +1,5 @@
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 
 namespace Curso.ECommerce.Application.Service
 {
@@ -11,5 +12,7 @@ namespace Curso.ECommerce.Application.Service
         Task UpdateAsync (string brandId, BrandCreateUpdateDto brand);
 
         Task<bool> DeleteAsync(string brandId);
+
+        PaginatedList<BrandDto> GetAllPaginated(int limit, int offset);
     }
 }

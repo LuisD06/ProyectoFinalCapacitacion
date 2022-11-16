@@ -1,5 +1,6 @@
 using AutoMapper;
 using Curso.ECommerce.Application.Dto;
+using Curso.ECommerce.Application.Models;
 using Curso.ECommerce.Domain.enums;
 using Curso.ECommerce.Domain.models;
 using Curso.ECommerce.Domain.repository;
@@ -89,10 +90,33 @@ namespace Curso.ECommerce.Application.Service
             return creditDto;
         }
 
-        // TODO: Implementar update credit
-        public Task UpdateAsync(Guid orderId, OrderUpdateDto order)
+        public async Task<bool> DeleteAsync(Guid creditId)
         {
-            throw new NotImplementedException();
+            var creditEntity = await repository.GetByIdAsync(creditId);
+            if (creditEntity == null) {
+                throw new ArgumentException($"El crédito con el id {creditId} no existe");
+            }
+            creditEntity.Status = CreditStatus.Canceled;
+
+            await repository.UpdateAsync(creditEntity);
+            await repository.UnitOfWork.SaveChangesAsync();
+
+            return true;
+        }
+        public PaginatedList<CreditDto> GetAllPaginated(int limit, int offset)
+        {
+            var query = repository.GetAllIncluding(c => c.Client, c => c.Order);
+            var totalConsulta = query.Count();
+            if (limit > totalConsulta) {
+                limit = totalConsulta;
+            }
+            var creditDtoList = query.Skip(offset).Take(limit).Select(c => mapper.Map<CreditDto>(c));
+
+            var result = new PaginatedList<CreditDto>();
+            result.Total = creditDtoList.Count();
+            result.List = creditDtoList.ToList();
+
+            return result;
         }
     }
 }

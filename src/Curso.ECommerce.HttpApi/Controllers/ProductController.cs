@@ -8,7 +8,7 @@ namespace Curso.ECommerce.HttpApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    // [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductAppService service;
@@ -30,7 +30,7 @@ namespace Curso.ECommerce.HttpApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ProductDto> CreateAsync(ProductCreateUpdateDto product)
+        public async Task<ProductDto> CreateAsync( [FromForm] ProductCreateUpdateDto product)
         {   
             return await service.CreateAsync(product);
         }

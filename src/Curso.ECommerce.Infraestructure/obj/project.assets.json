@@ -1522,11 +1522,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
+      "projectUniqueName": "E:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
       "projectName": "Curso.ECommerce.Infraestructure",
-      "projectPath": "e:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
+      "projectPath": "E:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\Curso.ECommerce.Infraestructure.csproj",
       "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-      "outputPath": "e:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\obj\\",
+      "outputPath": "E:\\NetCore\\Capacitacion\\Proyecto Final\\ProyectoFinalCapacitacion\\src\\Curso.ECommerce.Infraestructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1596,7 +1596,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -10,7 +10,7 @@ namespace Curso.ECommerce.HttpApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    // [Authorize]
     public class BrandController : ControllerBase
     {
         private readonly IBrandAppService service;
